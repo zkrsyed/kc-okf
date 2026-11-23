@@ -1,0 +1,15 @@
+A q 1 calls= 4 sql=yes 26.2s 
+A q 2 calls= 5 sql=yes 19.0s 
+A q 3 calls= 6 sql=yes 16.9s 
+A q 4 calls= 7 sql=yes 22.1s 
+A q 5 calls= 4 sql=yes 10.3s 
+A q 6 calls=29 sql=NO  78.1s 
+A q 7 calls=20 sql=yes 71.9s 
+A q 8 calls= 5 sql=yes 29.3s 
+A q 9 calls=11 sql=yes 43.3s 
+A q10 calls=10 sql=yes 43.3s 
+A q11 calls=16 sql=yes 64.6s 
+A q12 calls=29 sql=NO  358.7s 
+A q13 calls=13 sql=yes 43.0s 
+A q14 calls= 8 sql=yes 56.1s 
+A q15 calls=23 sql=NO  291.4s 

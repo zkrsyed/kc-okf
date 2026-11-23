@@ -1,0 +1,178 @@
+name: kc-okf-poc-261122.ga4_sample
+type: dataplex-types.global.bigquery-dataset
+resource:
+  name: projects/kc-okf-poc-261122/datasets/ga4_sample
+  system: BIGQUERY
+  platform: GCP
+  displayName: ga4_sample
+  description: GA4 public sample copied as one partitioned table, for the KC/OKF POC
+  location: us
+  createTime: 2026-11-22T14:44:09.757Z
+  updateTime: 2026-11-22T14:44:09.757Z
+aspects:
+  dataplex-types.global.bigquery-dataset:
+    type: DEFAULT
+  dataplex-types.global.overview:
+    content: >-
+      The `kc-okf-poc-261122.ga4_sample` dataset is a Google Analytics 4 (GA4)
+      sample e-commerce dataset containing raw, event-level web analytics and
+      transaction data. The data originates from the Google Merchandise Store,
+      an actual online e-commerce website that sells Google-branded merchandise,
+      apparel, and accessories. Because the dataset consists of real-world
+      interactions, it provides a valuable resource for developing, testing, and
+      optimizing analytical queries, data pipelines, and dashboard prototypes
+      before deploying them in a production GA4 environment.
+
+
+      To protect business operations and individual user privacy, the dataset
+      has been obfuscated. Sensitive properties and metrics contain placeholder
+      values such as `<Other>`, `NULL`, and empty strings, which limits absolute
+      internal consistency. Nonetheless, the dataset serves as an ideal training
+      and testing resource, particularly for practicing nested schema operations
+      and querying behavioral web events without the need for active tracking
+      setups.
+
+
+      ## Data Details
+
+
+      * **Data Origin:** Google Merchandise Store, a standard GA4 web e-commerce
+      implementation using standard tracking and enhanced measurement events.
+
+      * **Underlying Schema:** Structured as a nested schema using arrays and
+      structs to represent event parameters (`event_params`), user properties
+      (`user_properties`), and e-commerce product listings (`items`).
+
+      * **Source Reference:** Mirrors the public Google Cloud BigQuery dataset
+      `bigquery-public-data.ga4_obfuscated_sample_ecommerce`.
+
+      * **Data Timeframe:** Covers a three-month sample period spanning November
+      1, 2020, to January 31, 2021, containing 92 daily partitioned tables.
+
+      * **Obfuscation Policy:** Personally identifiable information (PII) and
+      core business metrics are replaced with placeholders (`<Other>`, `NULL`,
+      and `''`) to safeguard privacy, meaning values are not directly comparable
+      to live accounts.
+
+
+      ## Usage Details
+
+
+      * **UNNEST() Function Practice:** Since GA4 stores key attributes (like
+      session IDs, custom event parameters, and product details) in repeated
+      record structures, use the `UNNEST()` command to flatten and extract these
+      elements for analysis.
+
+      * **Performance Optimization:** Because of daily partitioning, always
+      include date filters (such as on `event_date_dt` or partition fields) in
+      your query `WHERE` clauses to restrict the scanned data and reduce
+      computational costs.
+
+      * **Sample Analytics Tasks:**
+        * **Event and User Volume Auditing:** Count unique actions and cookies (`user_pseudo_id`) to verify sample size and daily activity.
+        * **Session Analysis:** Extract the `ga_session_id` nested parameter within `session_start` events to compute distinct customer sessions.
+        * **E-Commerce Conversion Tracking:** Analyze product additions to carts by unnesting and counting the elements within the `items` array filtered on the `add_to_cart` event.
+      * **BI Integration:** Connect this dataset to visualization platforms such
+      as Looker Studio or Tableau to build and practice creating e-commerce
+      dashboard prototypes.
+
+
+      ### Example Queries
+
+
+      #### 1. High-Level Event and User Volume
+
+      To understand the scale of the dataset, count the total events, unique
+      users, and unique days present in the dataset:
+
+      ```sql
+
+      SELECT 
+        COUNT(*) AS total_events, 
+        COUNT(DISTINCT user_pseudo_id) AS total_unique_users, 
+        COUNT(DISTINCT event_date) AS total_days
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`
+      ```
+
+
+      #### 2. Querying within a Specific Date Range
+
+      To minimize query scan size, use the parsed date column for partition
+      pruning to find the daily count of active users:
+
+      ```sql
+
+      SELECT 
+        event_date, 
+        COUNT(DISTINCT user_pseudo_id) as active_users 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample` 
+      WHERE 
+        event_date_dt BETWEEN PARSE_DATE('%Y%m%d', '20201201') AND PARSE_DATE('%Y%m%d', '20201231') 
+      GROUP BY 
+        event_date 
+      ORDER BY 
+        event_date ASC
+      ```
+
+
+      #### 3. Counting Sessions (Unnesting Parameters)
+
+      Extract the unique session identifier embedded within standard tracking
+      event parameters to count total sessions:
+
+      ```sql
+
+      SELECT 
+        COUNT(DISTINCT value.int_value) AS total_sessions
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`, 
+        UNNEST(event_params) 
+      WHERE 
+        event_name = 'session_start' 
+        AND key = 'ga_session_id'
+      ```
+
+
+      #### 4. Top 10 Added-to-Cart Products (Unnesting Product Arrays)
+
+      Identify the top products added to the shopping cart by unnesting the
+      nested product item details:
+
+      ```sql
+
+      SELECT 
+        items.item_name, 
+        COUNT(*) AS added_to_cart_count 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`, 
+        UNNEST(items) AS items
+      WHERE 
+        event_name = 'add_to_cart' 
+      GROUP BY 
+        items.item_name 
+      ORDER BY 
+        added_to_cart_count DESC 
+      LIMIT 10
+
+      ```
+
+
+      ## Citations
+
+
+      * "Google Analytics 4 BigQuery Public Dataset Overview", `overview.md`
+
+      * "Using Google Analytics 4 BigQuery Public Dataset", `usage.md`
+
+      * "Using Analytics Events", `events.md`
+
+      * "High-Level Event and User Volume", `example1.md`
+
+      * "Querying a Specific Date Range", `example2.md`
+
+      * "Session Analysis (Unnesting Parameters)", `example3.md`
+
+      * "E-Commerce Product Interest", `example4.md`
+    contentType: MARKDOWN

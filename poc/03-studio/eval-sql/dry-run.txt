@@ -1,0 +1,12 @@
+01.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 995193539 bytes of data.
+02.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 46243844 bytes of data.
+03.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 169235471 bytes of data.
+04.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 11980757 bytes of data.
+05.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 5134566 bytes of data.
+06.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 12921272 bytes of data.
+07.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 47328625 bytes of data.
+08.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 62858914 bytes of data.
+09.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 38941433 bytes of data.
+10.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 393928166 bytes of data.
+11.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 287207343 bytes of data.
+12.sql: Query successfully validated. Assuming the tables are not modified, running this query will process 8907888 bytes of data.

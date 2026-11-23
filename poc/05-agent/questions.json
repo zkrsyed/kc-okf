@@ -1,0 +1,162 @@
+[
+ {
+  "id": 1,
+  "question": "How many sessions are in the events table in total?",
+  "golden_sql": "SELECT COUNT(DISTINCT CONCAT(user_pseudo_id, CAST(p.value.int_value AS STRING))) AS total_sessions\nFROM `kc-okf-poc-261122.ga4_sample.events`, UNNEST(event_params) AS p\nWHERE event_name = 'session_start' AND p.key = 'ga_session_id'",
+  "kind": "scalar",
+  "alternates": [
+   "SELECT COUNT(DISTINCT CONCAT(user_pseudo_id, CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key='ga_session_id') AS STRING))) FROM `kc-okf-poc-261122.ga4_sample.events`"
+  ],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 2,
+  "question": "How many daily active users were there each day in December 2020?",
+  "golden_sql": "SELECT event_date_dt, COUNT(DISTINCT user_pseudo_id) AS active_users\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_date_dt BETWEEN '2020-12-01' AND '2020-12-31'\nGROUP BY event_date_dt ORDER BY event_date_dt",
+  "kind": "full",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 3,
+  "question": "Which 10 products were added to the cart most often?",
+  "golden_sql": "SELECT i.item_name, COUNT(*) AS added_to_cart_count\nFROM `kc-okf-poc-261122.ga4_sample.events`, UNNEST(items) AS i\nWHERE event_name = 'add_to_cart'\nGROUP BY i.item_name ORDER BY added_to_cart_count DESC LIMIT 10",
+  "kind": "topn",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 4,
+  "question": "Which pages got the most page views on 15 January 2021?",
+  "golden_sql": "SELECT (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location') AS page_location, COUNT(*) AS page_views\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_name = 'page_view' AND event_date_dt = '2021-01-15'\nGROUP BY page_location ORDER BY page_views DESC LIMIT 20",
+  "kind": "topn",
+  "alternates": [
+   "SELECT (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') AS page_title, COUNT(*) AS page_views FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'page_view' AND event_date_dt = '2021-01-15' GROUP BY 1 ORDER BY 2 DESC LIMIT 20"
+  ],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 5,
+  "question": "How many purchases were made each day in the first week of January 2021?",
+  "golden_sql": "SELECT event_date_dt, COUNT(*) AS purchases\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_name = 'purchase' AND event_date_dt BETWEEN '2021-01-01' AND '2021-01-07'\nGROUP BY event_date_dt ORDER BY event_date_dt",
+  "kind": "full",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 6,
+  "question": "What was net merch revenue for December 2020?",
+  "golden_sql": "SELECT SUM(ecommerce.purchase_revenue_in_usd) - SUM(IFNULL(ecommerce.refund_value_in_usd, 0)) AS net_merch_revenue_usd\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_date_dt BETWEEN '2020-12-01' AND '2020-12-31'",
+  "kind": "scalar",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 7,
+  "question": "How many active buyers (28d) were there as of 31 January 2021?",
+  "golden_sql": "SELECT COUNT(DISTINCT user_pseudo_id) AS active_buyers_28d\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_name = 'purchase' AND event_date_dt BETWEEN DATE_SUB('2021-01-31', INTERVAL 27 DAY) AND '2021-01-31'",
+  "kind": "scalar",
+  "alternates": [
+   "SELECT COUNT(DISTINCT user_pseudo_id) FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'purchase' AND event_date_dt BETWEEN DATE_SUB('2021-01-31', INTERVAL 28 DAY) AND '2021-01-31'"
+  ],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 8,
+  "question": "Show the number of users by city for January 2021.",
+  "golden_sql": "SELECT geo.country, geo.region, COUNT(DISTINCT user_pseudo_id) AS users\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31'\nGROUP BY geo.country, geo.region ORDER BY users DESC",
+  "kind": "full",
+  "alternates": [
+   "SELECT geo.region, COUNT(DISTINCT user_pseudo_id) AS users FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31' GROUP BY 1 ORDER BY 2 DESC",
+   "SELECT geo.country, COUNT(DISTINCT user_pseudo_id) AS users FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31' GROUP BY 1 ORDER BY 2 DESC"
+  ],
+  "must_not": [
+   "geo\\.city",
+   "geo\\.metro"
+  ],
+  "seen_by_studio": true
+ },
+ {
+  "id": 9,
+  "question": "Break down January 2021 sessions by traffic source for a marketing attribution report.",
+  "golden_sql": "SELECT traffic_source.source, COUNT(*) AS sessions\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_name = 'session_start' AND event_date_dt BETWEEN '2021-01-01' AND '2021-01-31'\n  AND traffic_source.source != '(data deleted)'\nGROUP BY traffic_source.source ORDER BY sessions DESC",
+  "kind": "full",
+  "alternates": [
+   "WITH s AS (SELECT DISTINCT user_pseudo_id, (SELECT value.int_value FROM UNNEST(event_params) WHERE key='ga_session_id') AS sid, traffic_source.source AS source FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31' AND traffic_source.source != '(data deleted)') SELECT source, COUNT(*) FROM s GROUP BY 1 ORDER BY 2 DESC"
+  ],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 10,
+  "question": "What was the cart conversion rate in December 2020?",
+  "golden_sql": "WITH s AS (\n  SELECT user_pseudo_id, (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS session_id,\n         COUNTIF(event_name = 'purchase') > 0 AS has_purchase,\n         COUNTIF(event_name = 'add_to_cart') > 0 AS has_add_to_cart\n  FROM `kc-okf-poc-261122.ga4_sample.events`\n  WHERE event_date_dt BETWEEN '2020-12-01' AND '2020-12-31'\n  GROUP BY 1, 2)\nSELECT SAFE_DIVIDE(COUNTIF(has_purchase), COUNTIF(has_add_to_cart)) AS cart_conversion_rate FROM s",
+  "kind": "scalar",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 11,
+  "question": "How many engaged sessions were there in January 2021?",
+  "golden_sql": "WITH s AS (\n  SELECT user_pseudo_id, (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS session_id,\n         (MAX(event_timestamp) - MIN(event_timestamp)) / 1e6 AS duration_s,\n         COUNTIF(event_name = 'page_view') AS page_views,\n         COUNTIF(event_name = 'purchase') AS purchases\n  FROM `kc-okf-poc-261122.ga4_sample.events`\n  WHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31'\n  GROUP BY 1, 2)\nSELECT COUNTIF(duration_s > 10 OR page_views >= 2 OR purchases > 0) AS engaged_sessions FROM s",
+  "kind": "scalar",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 12,
+  "question": "Show daily net merch revenue for January 2021, final days only.",
+  "golden_sql": "SELECT event_date_dt, SUM(ecommerce.purchase_revenue_in_usd) - SUM(IFNULL(ecommerce.refund_value_in_usd, 0)) AS net_merch_revenue_usd\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_date_dt BETWEEN '2021-01-01' AND DATE_SUB('2021-01-31', INTERVAL 3 DAY)\nGROUP BY event_date_dt ORDER BY event_date_dt",
+  "kind": "full",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": true
+ },
+ {
+  "id": 13,
+  "question": "Break down December 2020 sessions by traffic medium for a marketing attribution report.",
+  "golden_sql": "SELECT traffic_source.medium, COUNT(*) AS sessions FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'session_start' AND event_date_dt BETWEEN '2020-12-01' AND '2020-12-31' AND traffic_source.source != '(data deleted)' GROUP BY 1 ORDER BY 2 DESC",
+  "kind": "full",
+  "alternates": [
+   "WITH s AS (SELECT DISTINCT user_pseudo_id, (SELECT value.int_value FROM UNNEST(event_params) WHERE key='ga_session_id') AS sid, traffic_source.medium AS medium FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_date_dt BETWEEN '2020-12-01' AND '2020-12-31' AND traffic_source.source != '(data deleted)') SELECT medium, COUNT(*) FROM s GROUP BY 1 ORDER BY 2 DESC"
+  ],
+  "must_not": [],
+  "seen_by_studio": false,
+  "policy": "exclude traffic_source.source = '(data deleted)' from attribution"
+ },
+ {
+  "id": 14,
+  "question": "Which 5 cities had the most purchasers in December 2020?",
+  "golden_sql": "SELECT geo.region, COUNT(DISTINCT user_pseudo_id) AS purchasers FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'purchase' AND event_date_dt BETWEEN '2020-12-01' AND '2020-12-31' GROUP BY 1 ORDER BY 2 DESC LIMIT 5",
+  "kind": "topn",
+  "alternates": [
+   "SELECT geo.country, COUNT(DISTINCT user_pseudo_id) AS purchasers FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'purchase' AND event_date_dt BETWEEN '2020-12-01' AND '2020-12-31' GROUP BY 1 ORDER BY 2 DESC LIMIT 5",
+   "SELECT geo.country, geo.region, COUNT(DISTINCT user_pseudo_id) AS purchasers FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_name = 'purchase' AND event_date_dt BETWEEN '2020-12-01' AND '2020-12-31' GROUP BY 1, 2 ORDER BY 3 DESC LIMIT 5"
+  ],
+  "must_not": [
+   "geo\\.city",
+   "geo\\.metro"
+  ],
+  "seen_by_studio": false,
+  "policy": "geo.city is Tier C3: aggregate to region or country"
+ },
+ {
+  "id": 15,
+  "question": "What was total net merch revenue for January 2021, counting only days that are final?",
+  "golden_sql": "SELECT SUM(ecommerce.purchase_revenue_in_usd) - SUM(IFNULL(ecommerce.refund_value_in_usd, 0)) AS net_merch_revenue_usd FROM `kc-okf-poc-261122.ga4_sample.events` WHERE event_date_dt BETWEEN '2021-01-01' AND DATE_SUB('2021-01-31', INTERVAL 3 DAY)",
+  "kind": "scalar",
+  "alternates": [],
+  "must_not": [],
+  "seen_by_studio": false,
+  "policy": "net = revenue minus refunds; drop the last 3 days (72-hour finality)"
+ }
+]

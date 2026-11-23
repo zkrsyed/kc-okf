@@ -1,0 +1,40 @@
+{
+ "justification": "POC step 4: hand-written playbook submitted for review",
+ "labels": {
+  "source": "human"
+ },
+ "changePayload": {
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context",
+  "changes": [
+   {
+    "createEntryRequest": {
+     "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context",
+     "entryId": "documents/playbook-engaged-sessions",
+     "entry": {
+      "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+      "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents",
+      "entrySource": {
+       "labels": {
+        "source": "human"
+       }
+      },
+      "aspects": {
+       "dataplex-types.global.document": {
+        "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+        "data": {
+         "type": "knowledge-base"
+        }
+       },
+       "dataplex-types.global.overview": {
+        "data": {
+         "content": "# Playbook: count engaged sessions\n\nHand-written by the data team (POC step 4, submitted as a reviewed change request). Follow this when a question asks how many sessions were \"engaged\" in a period.\n\n## When to use\n\n\"How many engaged sessions in January?\", \"engaged session count by month\", \"share of sessions that were engaged\".\n\n## Approach\n\n1. A session is `user_pseudo_id` + the `ga_session_id` value from `event_params` (`value.int_value`). Never count `ga_session_id` alone: different users can share a value.\n2. Engaged = lasted more than 10 seconds (max minus min `event_timestamp`, in microseconds, divided by 1e6), **or** 2 or more `page_view` events, **or** at least one `purchase`.\n3. Filter on the partition column `event_date_dt`.\n\n## SQL\n\n```sql\nWITH s AS (\n  SELECT user_pseudo_id,\n         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS session_id,\n         (MAX(event_timestamp) - MIN(event_timestamp)) / 1e6 AS duration_s,\n         COUNTIF(event_name = 'page_view') AS page_views,\n         COUNTIF(event_name = 'purchase') AS purchases\n  FROM `kc-okf-poc-261122.ga4_sample.events`\n  WHERE event_date_dt BETWEEN '2021-01-01' AND '2021-01-31'\n  GROUP BY 1, 2)\nSELECT COUNTIF(duration_s > 10 OR page_views >= 2 OR purchases > 0) AS engaged_sessions\nFROM s\n```\n",
+         "contentType": "MARKDOWN"
+        }
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}

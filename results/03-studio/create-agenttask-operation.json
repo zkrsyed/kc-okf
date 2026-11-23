@@ -1,0 +1,22 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us-central1/operations/operation-1795384957445-660e4a29fa4a3-a6170354-1f42853a",
+  "metadata": {
+    "@type": "type.googleapis.com/google.cloud.dataplex.v1.OperationMetadata",
+    "createTime": "2026-11-22T22:02:38.085416106Z",
+    "endTime": "2026-11-22T22:07:04.655891911Z",
+    "target": "projects/kc-okf-poc-261122/locations/us-central1/agentTasks/ga4-events-enrichment",
+    "verb": "create",
+    "requestedCancellation": false,
+    "apiVersion": ""
+  },
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.cloud.dataplex.v1.AgentTask",
+    "name": "projects/kc-okf-poc-261122/locations/us-central1/agentTasks/ga4-events-enrichment",
+    "uid": "7228fab9-2fe6-40fa-a1d6-bae8740aa709",
+    "displayName": "GA4 events enrichment",
+    "createTime": "2026-11-22T22:02:38.081249374Z",
+    "updateTime": "2026-11-22T22:02:38.081249374Z",
+    "etag": "h853Mchg8mBhSwqwFJVcKjRZZTgseMsx3lIhv0ojMv4"
+  }
+}

@@ -1,0 +1,174 @@
+name: kc-okf-poc-261122.ga4_sample
+type: dataplex-types.global.bigquery-dataset
+resource:
+  name: projects/kc-okf-poc-261122/datasets/ga4_sample
+  system: BIGQUERY
+  platform: GCP
+  displayName: ga4_sample
+  description: GA4 public sample copied as one partitioned table, for the KC/OKF POC
+  location: us
+  createTime: 2026-11-22T14:44:09.757Z
+  updateTime: 2026-11-22T14:44:09.757Z
+aspects:
+  dataplex-types.global.bigquery-dataset:
+    type: DEFAULT
+  dataplex-types.global.overview:
+    content: >-
+      The `kc-okf-poc-261122.ga4_sample` asset is a Google Analytics 4 (GA4)
+      sample dataset containing raw, event-level e-commerce data. It provides
+      structured analytics records modeled after the Google Merchandise Store,
+      an online store selling Google-branded apparel, accessories, and
+      merchandise. The dataset represents a standard GA4 web e-commerce
+      implementation combined with enhanced measurement events.
+
+
+      Spanning a three-month historical range from November 1, 2020, to January
+      31, 2021, the data contains detailed user interaction records. To ensure
+      user anonymity and protect proprietary business metrics, the data features
+      intentional obfuscation. Users will find placeholder values such as
+      `<Other>`, `NULL`, and empty strings inside the records. Consequently,
+      internal consistency is modified and metrics cannot be directly compared
+      to live or production Google Analytics demo accounts.
+
+
+      ## Data Details
+
+
+      * **Origin Source**: The Google Merchandise Store, demonstrating actual
+      GA4 tracking of e-commerce user journeys.
+
+      * **Temporal Coverage**: Spans a 92-day duration starting November 1,
+      2020, through January 31, 2021.
+
+      * **Nested Architecture**: Utilizes deeply nested BigQuery arrays and
+      structs to represent `event_params`, `user_properties`, and `items`.
+
+      * **Obfuscation Measures**: Includes intentional placeholders such as
+      `<Other>`, empty strings, and `NULL` values to secure privacy.
+
+      * **Partition Optimization**: Contains the `event_date_dt` column,
+      allowing queries to restrict scans and minimize query resource
+      consumption.
+
+
+      ## Usage Details
+
+
+      * **Schema and Nested Query Practice**: Serves as a training resource for
+      querying nested structures. Analysts can practice utilizing the SQL
+      `UNNEST()` function to flatten event parameters, item catalogs, and user
+      properties.
+
+      * **Analytical Modeling**: Supports building and testing custom SQL-based
+      data models for advanced use cases such as customer retention, web
+      funnels, or marketing attributions prior to production deployment.
+
+      * **Dashboard Prototyping**: Integrates with business intelligence tools
+      like Looker Studio or Tableau to build and validate interactive dashboard
+      mockups.
+
+
+      ### Common SQL Query Examples
+
+
+      The following SQL queries demonstrate how to extract insights from this
+      asset.
+
+
+      #### 1. Checking High-Level Volume Metrics
+
+      To comprehend the scale of the dataset, this query counts the total
+      events, unique active user cookies, and total distinct days recorded:
+
+      ```sql
+
+      SELECT 
+        COUNT(*) AS total_events, 
+        COUNT(DISTINCT user_pseudo_id) AS total_unique_users, 
+        COUNT(DISTINCT event_date) AS total_days
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`
+      ```
+
+
+      #### 2. Querying a Specific Date Range
+
+      To control BigQuery analysis costs and improve efficiency, apply a date
+      filter on the partition column `event_date_dt`:
+
+      ```sql
+
+      SELECT 
+        event_date, 
+        COUNT(DISTINCT user_pseudo_id) as active_users 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample` 
+      WHERE 
+        event_date_dt BETWEEN PARSE_DATE('%Y%m%d', '20201201') AND PARSE_DATE('%Y%m%d', '20201231') 
+      GROUP BY 
+        event_date 
+      ORDER BY 
+        event_date ASC
+      ```
+
+
+      #### 3. Analyzing Sessions (Unnesting Parameters)
+
+      In GA4, session tracking is nested. You can retrieve the total number of
+      sessions by isolating the `session_start` event and unnesting the
+      `ga_session_id` within the `event_params` struct:
+
+      ```sql
+
+      SELECT 
+        COUNT(DISTINCT value.int_value) AS total_sessions
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`, 
+        UNNEST(event_params) 
+      WHERE 
+        event_name = 'session_start' 
+        AND key = 'ga_session_id'
+      ```
+
+
+      #### 4. Cart Addition & Product Interest Analysis
+
+      To measure product interest, this query flattens the nested `items` array
+      and aggregates the top 10 products added to the shopping cart:
+
+      ```sql
+
+      SELECT 
+        items.item_name, 
+        COUNT(*) AS added_to_cart_count 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample`, 
+        UNNEST(items) AS items
+      WHERE 
+        event_name = 'add_to_cart' 
+      GROUP BY 
+        items.item_name 
+      ORDER BY 
+        added_to_cart_count DESC 
+      LIMIT 10
+
+      ```
+
+
+      ## Citations
+
+
+      * *Google Analytics 4 BigQuery Public Dataset Overview*, `overview.md`
+
+      * *Using Google Analytics 4 BigQuery Public Dataset*, `usage.md`
+
+      * *Using Analytics Events*, `events.md`
+
+      * *High-Level Event and User Volume Examples*, `example1.md`
+
+      * *Querying a Specific Date Range Examples*, `example2.md`
+
+      * *Session Analysis (Unnesting Parameters) Examples*, `example3.md`
+
+      * *E-Commerce Product Interest Examples*, `example4.md`
+    contentType: MARKDOWN

@@ -1,0 +1,10 @@
+{
+  "name": "kc-okf-poc",
+  "private": true,
+  "description": "Tools for the Knowledge Catalog / Studio / OKF POC (pinned versions)",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=22.12.0" },
+  "dependencies": {
+    "@google-cloud/kcmd": "0.2.5"
+  }
+}

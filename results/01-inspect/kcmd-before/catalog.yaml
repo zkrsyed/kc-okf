@@ -1,0 +1,4 @@
+scope: bq-dataset.kc-okf-poc-261122.ga4_sample
+snapshot:
+  aspects:
+    - dataplex-types.global.overview

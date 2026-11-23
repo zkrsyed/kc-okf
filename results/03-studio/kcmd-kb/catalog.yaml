@@ -1,0 +1,4 @@
+scope: kb.kc-okf-poc-261122.us.ga4-merch-context
+snapshot:
+  aspects:
+    - dataplex-types.global.overview

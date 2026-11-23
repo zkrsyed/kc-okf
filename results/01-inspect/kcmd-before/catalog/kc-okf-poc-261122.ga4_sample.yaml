@@ -1,0 +1,14 @@
+name: kc-okf-poc-261122.ga4_sample
+type: dataplex-types.global.bigquery-dataset
+resource:
+  name: projects/kc-okf-poc-261122/datasets/ga4_sample
+  system: BIGQUERY
+  platform: GCP
+  displayName: ga4_sample
+  description: GA4 public sample copied as one partitioned table, for the KC/OKF POC
+  location: us
+  createTime: 2026-11-22T14:44:09.757Z
+  updateTime: 2026-11-22T14:44:09.757Z
+aspects:
+  dataplex-types.global.bigquery-dataset:
+    type: DEFAULT

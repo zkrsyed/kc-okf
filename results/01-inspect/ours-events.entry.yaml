@@ -1,0 +1,505 @@
+aspects:
+  655216118709.global.bigquery-policy: {}
+  655216118709.global.bigquery-table:
+    aspectSource:
+      createTime: '2026-11-22T14:48:29.589Z'
+      dataVersion: Ingestion/1.0.0
+      updateTime: '2026-11-22T14:48:29.589Z'
+    aspectType: projects/655216118709/locations/global/aspectTypes/bigquery-table
+    createTime: '2026-11-22T14:48:30.463822Z'
+    data:
+      partitioning:
+        columns:
+        - event_date_dt
+        interval: DAY
+      tableType: TABLE
+      type: TABLE
+    updateTime: '2026-11-22T14:48:30.463822Z'
+  655216118709.global.schema:
+    aspectSource:
+      createTime: '2026-11-22T14:48:29.589Z'
+      dataVersion: Ingestion/1.0.0
+      updateTime: '2026-11-22T14:48:29.589Z'
+    aspectType: projects/655216118709/locations/global/aspectTypes/schema
+    createTime: '2026-11-22T14:48:30.463822Z'
+    data:
+      fields:
+      - dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+        name: event_date
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: event_timestamp
+      - dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+        name: event_name
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: key
+        - dataType: RECORD
+          fields:
+          - dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+            name: string_value
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: int_value
+          - dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: float_value
+          - dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: double_value
+          metadataType: STRUCT
+          mode: NULLABLE
+          name: value
+        metadataType: STRUCT
+        mode: REPEATED
+        name: event_params
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: event_previous_timestamp
+      - dataType: FLOAT
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: event_value_in_usd
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: event_bundle_sequence_id
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: event_server_timestamp_offset
+      - dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+        name: user_id
+      - dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+        name: user_pseudo_id
+      - dataType: RECORD
+        fields:
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: analytics_storage
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: ads_storage
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: uses_transient_token
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: privacy_info
+      - dataType: RECORD
+        fields:
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: key
+        - dataType: RECORD
+          fields:
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: string_value
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: int_value
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: float_value
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: double_value
+          - dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+            name: set_timestamp_micros
+          metadataType: STRUCT
+          mode: NULLABLE
+          name: value
+        metadataType: STRUCT
+        mode: REPEATED
+        name: user_properties
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: user_first_touch_timestamp
+      - dataType: RECORD
+        fields:
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: revenue
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: currency
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: user_ltv
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: category
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: mobile_brand_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: mobile_model_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: mobile_marketing_name
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: mobile_os_hardware_model
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: operating_system
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: operating_system_version
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: vendor_id
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: advertising_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: language
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: is_limited_ad_tracking
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: time_zone_offset_seconds
+        - dataType: RECORD
+          fields:
+          - dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+            name: browser
+          - dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+            name: browser_version
+          metadataType: STRUCT
+          mode: NULLABLE
+          name: web_info
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: device
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: continent
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: sub_continent
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: country
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: region
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: city
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: metro
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: geo
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: version
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: install_store
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: firebase_app_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: install_source
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: app_info
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: medium
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: source
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: traffic_source
+      - dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+        name: stream_id
+      - dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+        name: platform
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: hostname
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: event_dimensions
+      - dataType: RECORD
+        fields:
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: total_item_quantity
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: purchase_revenue_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: purchase_revenue
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: refund_value_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: refund_value
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: shipping_value_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: shipping_value
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: tax_value_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: tax_value
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: unique_items
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: transaction_id
+        metadataType: STRUCT
+        mode: NULLABLE
+        name: ecommerce
+      - dataType: RECORD
+        fields:
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_brand
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_variant
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_category
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_category2
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_category3
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_category4
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_category5
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: price_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: price
+        - dataType: INTEGER
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: quantity
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: item_revenue_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: item_revenue
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: item_refund_in_usd
+        - dataType: FLOAT
+          metadataType: NUMBER
+          mode: NULLABLE
+          name: item_refund
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: coupon
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: affiliation
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: location_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_list_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_list_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: item_list_index
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: promotion_id
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: promotion_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: creative_name
+        - dataType: STRING
+          metadataType: STRING
+          mode: NULLABLE
+          name: creative_slot
+        metadataType: STRUCT
+        mode: REPEATED
+        name: items
+      - dataType: DATE
+        metadataType: DATETIME
+        mode: NULLABLE
+        name: event_date_dt
+    updateTime: '2026-11-22T14:48:30.463822Z'
+  655216118709.global.storage:
+    aspectSource:
+      createTime: '2026-11-22T14:48:29.589Z'
+      dataVersion: Ingestion/1.0.0
+      updateTime: '2026-11-22T14:48:29.589Z'
+    aspectType: projects/655216118709/locations/global/aspectTypes/storage
+    createTime: '2026-11-22T14:48:30.463822Z'
+    data:
+      resourceName: //bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events
+      service: BIGQUERY
+    updateTime: '2026-11-22T14:48:30.463822Z'
+createTime: '2026-11-22T14:48:30.463822Z'
+entrySource:
+  ancestors:
+  - name: projects/kc-okf-poc-261122/datasets/ga4_sample
+    type: dataplex-types.global.bigquery-dataset
+  createTime: '2026-11-22T14:48:29.589Z'
+  displayName: events
+  location: us
+  platform: GCP
+  resource: projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events
+  system: BIGQUERY
+  updateTime: '2026-11-22T14:48:29.589Z'
+entryType: projects/655216118709/locations/global/entryTypes/bigquery-table
+fullyQualifiedName: bigquery:kc-okf-poc-261122.ga4_sample.events
+name: projects/kc-okf-poc-261122/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events
+parentEntry: projects/kc-okf-poc-261122/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample
+updateTime: '2026-11-22T14:48:30.463822Z'

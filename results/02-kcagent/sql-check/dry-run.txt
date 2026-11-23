@@ -1,0 +1,16 @@
+run1-dataset-q1.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run1-dataset-q2.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run1-dataset-q3.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run1-dataset-q4.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run1-events-q1.sql | valid | 125.7 MB
+run1-events-q2.sql | valid | 59.5 MB
+run1-events-q3.sql | valid | 864.4 MB
+run1-events-q4.sql | valid | 161.4 MB
+run2-dataset-q1.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run2-dataset-q2.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run2-dataset-q3.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run2-dataset-q4.sql | INVALID | BigQuery error in query operation: Not found: Dataset kc-okf-poc-261122:kc-okf- poc-261122 was not found in location US 
+run2-events-q1.sql | valid | 125.7 MB
+run2-events-q2.sql | valid | 59.5 MB
+run2-events-q3.sql | valid | 864.4 MB
+run2-events-q4.sql | valid | 161.4 MB

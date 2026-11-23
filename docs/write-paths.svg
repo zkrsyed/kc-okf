@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="960" height="430" fill="#ffffff"/>
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#5f6368"/></marker></defs>
+  <text x="20" y="30" font-size="18" font-weight="600" fill="#202124">Three ways context gets into a context set (all verified in this POC)</text>
+
+  <!-- path 1 studio -->
+  <rect x="20" y="56" width="250" height="96" rx="8" fill="#e8f0fe" stroke="#8ab4f8"/>
+  <text x="32" y="78" font-weight="600" fill="#174ea6">1. Studio enrichment</text>
+  <text x="32" y="98" fill="#3c4043">author: our service account</text>
+  <text x="32" y="116" fill="#3c4043">drafts pages from signals,</text>
+  <text x="32" y="134" fill="#3c4043">scores them with the eval set</text>
+
+  <!-- path 2 CR api -->
+  <rect x="20" y="168" width="250" height="96" rx="8" fill="#e6f4ea" stroke="#81c995"/>
+  <text x="32" y="190" font-weight="600" fill="#0d652d">2. Change request by API</text>
+  <text x="32" y="210" fill="#3c4043">requestBatchMetadataChange</text>
+  <text x="32" y="228" fill="#3c4043">author: a person (hand-written</text>
+  <text x="32" y="246" fill="#3c4043">playbook, step 4)</text>
+
+  <!-- path 3 kcmd push -->
+  <rect x="20" y="280" width="250" height="96" rx="8" fill="#fce8e6" stroke="#f28b82"/>
+  <text x="32" y="302" font-weight="600" fill="#a50e0e">3. kcmd push (OKF files)</text>
+  <text x="32" y="322" fill="#3c4043">batchChangeMetadata: direct write</text>
+  <text x="32" y="340" fill="#3c4043">needs contentEditor; not atomic</text>
+  <text x="32" y="358" fill="#3c4043">(2 of 3 changes applied once)</text>
+
+  <!-- review gate -->
+  <rect x="330" y="80" width="270" height="170" rx="10" fill="#fef7e0" stroke="#fdd663"/>
+  <text x="344" y="104" font-weight="600" fill="#202124">Review gate: change request</text>
+  <text x="344" y="126" fill="#3c4043">state NEW, nothing published yet</text>
+  <text x="344" y="146" fill="#3c4043">per-page View / Remove / edit (console)</text>
+  <text x="344" y="166" fill="#3c4043">approve needs changeRequests.use</text>
+  <text x="344" y="186" fill="#a50e0e">author can NOT approve own request</text>
+  <text x="344" y="204" fill="#a50e0e">(403, even as project Owner)</text>
+  <text x="344" y="226" fill="#3c4043">removed pages are erased, not "rejected"</text>
+
+  <line x1="270" y1="104" x2="330" y2="130" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="270" y1="216" x2="330" y2="200" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="270" y1="328" x2="660" y2="300" stroke="#a50e0e" stroke-dasharray="6 4" marker-end="url(#a)"/>
+  <text x="380" y="330" fill="#a50e0e">skips review entirely</text>
+
+  <!-- context set -->
+  <rect x="660" y="80" width="280" height="296" rx="10" fill="#e6f4ea" stroke="#81c995"/>
+  <text x="674" y="104" font-weight="600" fill="#0d652d">Context set ga4-merch-context</text>
+  <text x="674" y="128" font-family="Consolas, monospace" fill="#202124">agents</text>
+  <text x="674" y="148" font-family="Consolas, monospace" fill="#202124">assets/.../events</text>
+  <text x="674" y="168" font-family="Consolas, monospace" fill="#202124">documents/metrics</text>
+  <text x="674" y="188" font-family="Consolas, monospace" fill="#202124">documents/governance</text>
+  <text x="674" y="208" font-family="Consolas, monospace" fill="#a50e0e">documents/playbook-final-...</text>
+  <text x="690" y="226" fill="#5f6368">(pushed directly)</text>
+  <text x="674" y="250" fill="#5f6368">playbook-engaged-sessions:</text>
+  <text x="690" y="268" fill="#5f6368">still pending, no approver</text>
+  <text x="674" y="300" fill="#3c4043">read out by kcmd pull --format okf</text>
+  <text x="674" y="320" fill="#3c4043">or kcmd mcp, or the REST API</text>
+  <line x1="600" y1="165" x2="660" y2="165" stroke="#5f6368" marker-end="url(#a)"/>
+  <text x="604" y="156" fill="#5f6368">approve</text>
+
+  <text x="20" y="410" fill="#3c4043">Rule of thumb: Studio and change requests give you a reviewed, two-person path; kcmd push is for teams whose git pull request already is the review.</text>
+</svg>

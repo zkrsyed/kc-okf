@@ -1,0 +1,52 @@
+diff --git a/toolbox/enrichment/package.json b/toolbox/enrichment/package.json
+index 13f54c85..7eadb136 100644
+--- a/toolbox/enrichment/package.json
++++ b/toolbox/enrichment/package.json
+@@ -21,7 +21,7 @@
+   "license": "ISC",
+   "type": "commonjs",
+   "dependencies": {
+-    "@google-cloud/kcmd": "file:../mdcode",
++    "@google-cloud/kcmd": "0.2.5",
+     "@google/adk": "^1.1.0",
+     "@modelcontextprotocol/sdk": "^1.29.0",
+     "cac": "^7.0.0"
+diff --git a/toolbox/enrichment/src/agent/enrich/agent.ts b/toolbox/enrichment/src/agent/enrich/agent.ts
+index 5e1a0a1a..bc9faae7 100644
+--- a/toolbox/enrichment/src/agent/enrich/agent.ts
++++ b/toolbox/enrichment/src/agent/enrich/agent.ts
+@@ -6,7 +6,9 @@ import * as kcmd from '@google-cloud/kcmd';
+ 
+ 
+ const NAME = 'kcagent-enrich';
+-const MODEL = 'gemini-2.5-flash';
++// POC patch: model and Vertex location overridable (gemini-2.5-flash is not available to new projects)
++const MODEL = process.env.KCAGENT_MODEL || 'gemini-2.5-flash';
++const MODEL_LOCATION = process.env.KCAGENT_LOCATION;
+ const DESCRIPTION = 'Enriches the metadata in knowledge catalog.';
+ const PROMPT = `
+ Your are an experienced data steward and data analyst.
+@@ -96,7 +98,7 @@ export function createAgent(tools: adk.ToolUnion[]): adk.Agent {
+       model: MODEL,
+       vertexai: true,
+       project: apiContext.project,
+-      location: apiContext.location,
++      location: MODEL_LOCATION || apiContext.location,
+     }),
+     generateContentConfig: {
+       thinkingConfig: {
+diff --git a/toolbox/enrichment/src/agent/enrich/command.ts b/toolbox/enrichment/src/agent/enrich/command.ts
+index 8d4750a5..2a344b1a 100644
+--- a/toolbox/enrichment/src/agent/enrich/command.ts
++++ b/toolbox/enrichment/src/agent/enrich/command.ts
+@@ -107,6 +107,10 @@ export async function enrichCommand(options: EnrichOptions) {
+         else if (se.type === adk.EventType.TOOL_RESULT) {
+           console.log(`\x1b[30m[Tool Result] ${se.result.name}\n${JSON.stringify(se.result.response || {})}\x1b[0m`);
+         }
++        // POC diagnostic patch: upstream silently drops ERROR events
++        else if (se.type === adk.EventType.ERROR) {
++          console.error(`[Error] ${(se as any).error?.message ?? JSON.stringify(se)}`);
++        }
+       }
+     }
+   }

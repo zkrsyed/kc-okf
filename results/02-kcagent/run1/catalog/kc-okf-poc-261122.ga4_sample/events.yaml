@@ -1,0 +1,649 @@
+name: kc-okf-poc-261122.ga4_sample/events
+type: dataplex-types.global.bigquery-table
+resource:
+  name: projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events
+  system: BIGQUERY
+  platform: GCP
+  displayName: events
+  location: us
+  ancestors:
+    - name: projects/kc-okf-poc-261122/datasets/ga4_sample
+      type: dataplex-types.global.bigquery-dataset
+  createTime: 2026-11-22T14:48:29.589Z
+  updateTime: 2026-11-22T14:48:29.589Z
+aspects:
+  dataplex-types.global.bigquery-table:
+    type: TABLE
+    partitioning:
+      columns:
+        - event_date_dt
+      interval: DAY
+    tableType: TABLE
+  dataplex-types.global.schema:
+    fields:
+      - name: event_date
+        dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+      - name: event_timestamp
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: event_name
+        dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+      - name: event_params
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: key
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: value
+            dataType: RECORD
+            metadataType: STRUCT
+            fields:
+              - name: string_value
+                dataType: STRING
+                metadataType: STRING
+                mode: NULLABLE
+              - name: int_value
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: float_value
+                dataType: FLOAT
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: double_value
+                dataType: FLOAT
+                metadataType: NUMBER
+                mode: NULLABLE
+            mode: NULLABLE
+        mode: REPEATED
+      - name: event_previous_timestamp
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: event_value_in_usd
+        dataType: FLOAT
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: event_bundle_sequence_id
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: event_server_timestamp_offset
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: user_id
+        dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+      - name: user_pseudo_id
+        dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+      - name: privacy_info
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: analytics_storage
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: ads_storage
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: uses_transient_token
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: user_properties
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: key
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: value
+            dataType: RECORD
+            metadataType: STRUCT
+            fields:
+              - name: string_value
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: int_value
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: float_value
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: double_value
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+              - name: set_timestamp_micros
+                dataType: INTEGER
+                metadataType: NUMBER
+                mode: NULLABLE
+            mode: NULLABLE
+        mode: REPEATED
+      - name: user_first_touch_timestamp
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: user_ltv
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: revenue
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: currency
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: device
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: category
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: mobile_brand_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: mobile_model_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: mobile_marketing_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: mobile_os_hardware_model
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: operating_system
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: operating_system_version
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: vendor_id
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: advertising_id
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: language
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: is_limited_ad_tracking
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: time_zone_offset_seconds
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: web_info
+            dataType: RECORD
+            metadataType: STRUCT
+            fields:
+              - name: browser
+                dataType: STRING
+                metadataType: STRING
+                mode: NULLABLE
+              - name: browser_version
+                dataType: STRING
+                metadataType: STRING
+                mode: NULLABLE
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: geo
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: continent
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: sub_continent
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: country
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: region
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: city
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: metro
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: app_info
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: version
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: install_store
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: firebase_app_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: install_source
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: traffic_source
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: medium
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: source
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: stream_id
+        dataType: INTEGER
+        metadataType: NUMBER
+        mode: NULLABLE
+      - name: platform
+        dataType: STRING
+        metadataType: STRING
+        mode: NULLABLE
+      - name: event_dimensions
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: hostname
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: ecommerce
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: total_item_quantity
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: purchase_revenue_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: purchase_revenue
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: refund_value_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: refund_value
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: shipping_value_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: shipping_value
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: tax_value_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: tax_value
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: unique_items
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: transaction_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: NULLABLE
+      - name: items
+        dataType: RECORD
+        metadataType: STRUCT
+        fields:
+          - name: item_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_brand
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_variant
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_category
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_category2
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_category3
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_category4
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_category5
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: price_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: price
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: quantity
+            dataType: INTEGER
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: item_revenue_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: item_revenue
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: item_refund_in_usd
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: item_refund
+            dataType: FLOAT
+            metadataType: NUMBER
+            mode: NULLABLE
+          - name: coupon
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: affiliation
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: location_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_list_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_list_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: item_list_index
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: promotion_id
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: promotion_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: creative_name
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+          - name: creative_slot
+            dataType: STRING
+            metadataType: STRING
+            mode: NULLABLE
+        mode: REPEATED
+      - name: event_date_dt
+        dataType: DATE
+        metadataType: DATETIME
+        mode: NULLABLE
+  dataplex-types.global.storage:
+    service: BIGQUERY
+    resourceName: //bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events
+  dataplex-types.global.overview:
+    content: >
+      The `kc-okf-poc-261122.ga4_sample/events` asset contains raw, event-level
+      data exported from a Google Analytics 4 (GA4) implementation. This data
+      originates from the Google Merchandise Store, a real e-commerce platform
+      that sells Google-branded apparel and accessories. The dataset provides
+      standard web e-commerce measurement events along with enhanced tracking
+      features, making it a powerful resource for analytics, query prototyping,
+      and data science modeling.
+
+
+      This dataset spans a three-month period from November 1, 2020, to January
+      31, 2021. To protect user privacy and sensitive business operations, the
+      underlying metrics and details are obfuscated with placeholder values like
+      `<Other>`, `NULL`, and empty strings. While structurally rich, this data
+      does not support direct benchmarking against the live Google Merchandise
+      Store, though it preserves realistic schemas and relationships for
+      development.
+
+
+      The schema is highly nested, employing repeated record fields to
+      encapsulate attributes such as event parameters, user properties, and
+      product lists. Analysts can leverage this asset to practice complex
+      querying patterns, SQL operations like `UNNEST()`, sessionization
+      techniques, and visual dashboard prototyping in platforms like Looker
+      Studio or Tableau.
+
+
+      ## Data Details
+
+
+      * **Origin and Activity Source**: Real web tracking data from the Google
+      Merchandise Store, implementing GA4 enhanced measurement and standard
+      e-commerce setups.
+
+      * **Temporal Horizon**: Covers user events logged between November 1,
+      2020, and January 31, 2021.
+
+      * **Privacy Controls**: Features deliberate obfuscation of sensitive
+      values to protect business operations and user identity, which means
+      metrics do not align with live store benchmarks.
+
+      * **Highly Nested Schema**:
+        * `event_params`: Key-value pairs capturing event-specific properties (e.g., session identifiers, page URLs).
+        * `user_properties`: Captures persistent user-level attributes.
+        * `items`: Lists e-commerce products involved in an event, detailing names, categories, and transaction quantities.
+      * **Key Event Columns**:
+        * `event_name`: Categorizes actions (e.g., `page_view`, `session_start`, `add_to_cart`, `purchase`).
+        * `event_date` & `event_date_dt`: Date fields representing when the event occurred, enabling date-partitioned analysis.
+        * `user_pseudo_id`: Persistent anonymous device identifiers.
+        * `device`, `geo`, & `traffic_source`: Provide granular dimensions detailing technology, location (city, country), and acquisition channel.
+        * `ecommerce` & `user_ltv`: Store transactional details like total revenue, tax, and customer lifetime value in USD.
+
+      ## Usage Details
+
+
+      * **Cost Optimization & Performance**: Because GA4 datasets are highly
+      voluminous, queries should always use a filter on the partition column
+      (`event_date_dt`) within the `WHERE` clause. This limits the data scanned
+      and dramatically minimizes query execution costs.
+
+      * **Flattening Nested Records**: Since fields like `event_params` and
+      `items` are arrays of structs, use the SQL `UNNEST()` function to flatten
+      these columns and make individual elements queryable.
+
+      * **Session Analysis**: Because GA4 does not store sessions as unique
+      records, individual sessions must be calculated by targeting the
+      `session_start` event and unnesting the `ga_session_id` parameter from the
+      `event_params` array.
+
+      * **E-Commerce Funnel Tracking**: Top items and user conversion paths can
+      be tracked by matching actions like `add_to_cart` and unnesting the
+      corresponding `items` array.
+
+
+      ### Query Examples
+
+
+      #### 1. High-Level Event and User Scale
+
+      To understand the scale of the dataset, count the total events, unique
+      users, and total tracked days:
+
+      ```sql
+
+      SELECT 
+        COUNT(*) AS total_events, 
+        COUNT(DISTINCT user_pseudo_id) AS total_unique_users, 
+        COUNT(DISTINCT event_date) AS total_days
+      FROM 
+        `kc-okf-poc-261122.ga4_sample.events`
+      ```
+
+
+      #### 2. Querying within a Specific Date Range
+
+      Filter queries on `event_date_dt` to restrict query scan size and enhance
+      performance:
+
+      ```sql
+
+      SELECT 
+        event_date, 
+        COUNT(DISTINCT user_pseudo_id) as active_users 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample.events` 
+      WHERE 
+        event_date_dt BETWEEN PARSE_DATE('%Y%m%d', '20201201') AND PARSE_DATE('%Y%m%d', '20201231') 
+      GROUP BY 
+        event_date 
+      ORDER BY 
+        event_date ASC
+      ```
+
+
+      #### 3. Analyzing Sessions (Unnesting Parameters)
+
+      Extract the unique session count by filtering for the `session_start`
+      event and unnesting its parameters:
+
+      ```sql
+
+      SELECT 
+        COUNT(DISTINCT value.int_value) AS total_sessions
+      FROM 
+        `kc-okf-poc-261122.ga4_sample.events`, 
+        UNNEST(event_params) 
+      WHERE 
+        event_name = 'session_start' 
+        AND key = 'ga_session_id'
+      ```
+
+
+      #### 4. Top E-Commerce Products (Added to Cart)
+
+      Identify the top 10 most popular products added to the shopping cart:
+
+      ```sql
+
+      SELECT 
+        items.item_name, 
+        COUNT(*) AS added_to_cart_count 
+      FROM 
+        `kc-okf-poc-261122.ga4_sample.events`, 
+        UNNEST(items) AS items
+      WHERE 
+        event_name = 'add_to_cart' 
+      GROUP BY 
+        items.item_name 
+      ORDER BY 
+        added_to_cart_count DESC 
+      LIMIT 10
+
+      ```
+
+
+      ## Citations
+
+
+      * Google Analytics 4 BigQuery Public Dataset, `overview.md`
+
+      * Using Google Analytics 4 BigQuery Public Dataset, `usage.md`
+
+      * Using Analytics Events, `events.md`
+
+      * High-Level Event and User Volume, `example1.md`
+
+      * Querying a Specific Date Range, `example2.md`
+
+      * Session Analysis (Unnesting Parameters), `example3.md`
+
+      * E-Commerce Product Interest, `example4.md`
+    contentType: MARKDOWN

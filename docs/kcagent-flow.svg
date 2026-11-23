@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="600" fill="#ffffff"/>
+  <text x="20" y="28" font-size="17" font-weight="600" fill="#202124">kcagent enrich: who talks to whom (one loop per catalog entry)</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5f6368"/></marker></defs>
+
+  <!-- lifelines -->
+  <g font-weight="600" text-anchor="middle">
+    <rect x="30" y="45" width="150" height="44" rx="6" fill="#e8f0fe" stroke="#8ab4f8"/><text x="105" y="65" fill="#174ea6">kcagent process</text><text x="105" y="81" font-weight="400" fill="#3c4043">command.ts + ADK runner</text>
+    <rect x="230" y="45" width="150" height="44" rx="6" fill="#fef7e0" stroke="#fdd663"/><text x="305" y="65" fill="#202124">Gemini 2.5 Flash</text><text x="305" y="81" font-weight="400" fill="#3c4043">Vertex AI, us-central1</text>
+    <rect x="430" y="45" width="190" height="44" rx="6" fill="#e6f4ea" stroke="#81c995"/><text x="525" y="65" fill="#0d652d">md-fileset (MCP server)</text><text x="525" y="81" font-weight="400" fill="#3c4043">child process, talks over stdin/stdout</text>
+    <rect x="670" y="45" width="200" height="44" rx="6" fill="#f1f3f4" stroke="#9aa0a6"/><text x="770" y="65" fill="#202124">Local files</text><text x="770" y="81" font-weight="400" fill="#3c4043">catalog/*.yaml, fileset/*.md</text>
+  </g>
+  <g stroke="#bdc1c6" stroke-dasharray="4 4"><line x1="105" y1="89" x2="105" y2="585"/><line x1="305" y1="89" x2="305" y2="585"/><line x1="525" y1="89" x2="525" y2="585"/><line x1="770" y1="89" x2="770" y2="585"/></g>
+
+  <g stroke="#5f6368" stroke-width="1.4" fill="none" marker-end="url(#a)">
+    <line x1="105" y1="115" x2="520" y2="115"/>
+    <line x1="105" y1="150" x2="765" y2="150"/>
+    <line x1="105" y1="195" x2="300" y2="195"/>
+    <line x1="305" y1="240" x2="110" y2="240"/>
+    <line x1="105" y1="270" x2="520" y2="270"/>
+    <line x1="525" y1="292" x2="765" y2="292"/>
+    <line x1="520" y1="314" x2="110" y2="314"/>
+    <line x1="105" y1="340" x2="300" y2="340"/>
+    <line x1="305" y1="430" x2="110" y2="430"/>
+    <line x1="105" y1="470" x2="765" y2="470"/>
+    <line x1="105" y1="515" x2="300" y2="515"/>
+  </g>
+  <g fill="#202124">
+    <text x="115" y="110">1. start MCP server from tools/mcp.json; ask it "list your tools"</text>
+    <text x="115" y="145">2. read catalog snapshot, list entries (dataset, events table)</text>
+    <text x="115" y="183">3. per entry: system prompt + schema + prompt.md</text>
+    <text x="115" y="197" fill="#5f6368">   + tool list (update_documentation, 3 MCP tools, skills)</text>
+    <text x="115" y="235">4. model replies "call search_fileset_contents('events')"</text>
+    <text x="115" y="265">5. ADK forwards the call as an MCP request (JSON-RPC on stdin)</text>
+    <text x="535" y="287">6. grep / read .md files</text>
+    <text x="115" y="309">7. MCP result back on stdout</text>
+    <text x="115" y="335">8. result sent to the model as a tool result</text>
+    <text x="115" y="365" fill="#5f6368">   … steps 4–8 repeat: list, search, read several files …</text>
+    <text x="115" y="425">9. model replies "call update_documentation(markdown)"</text>
+    <text x="115" y="465">10. local function writes the overview aspect into the entry's YAML</text>
+    <text x="115" y="510">11. tool result "Successfully updated" → model says "done"</text>
+    <text x="115" y="560" fill="#5f6368">Only the model decides which tool to call. kcagent just executes the call it is asked for,</text>
+    <text x="115" y="578" fill="#5f6368">either locally (update_documentation) or by forwarding it to the MCP server.</text>
+  </g>
+</svg>

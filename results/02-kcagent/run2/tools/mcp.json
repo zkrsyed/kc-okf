@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "md-fileset": {
+      "command": "../../../vendor/knowledge-catalog/toolbox/enrichment/dist/md-fileset",
+      "args": [ "--dir", "fileset" ]
+    }
+  }
+}

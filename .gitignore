@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+.venv/
+__pycache__/
+# secrets / credentials — never commit
+.env
+.env.*
+*.pem
+*.key
+*credentials*.json
+*service-account*.json
+application_default_credentials.json
+.config/gcloud/
+# local scratch
+trash/*
+!trash/.gitkeep
+.DS_Store
+
+# third-party source checkouts (pinned commit recorded in results)
+vendor/
+
+# python virtual envs created by uv for tools and the step 5 agent
+poc/05-agent/.venv/
+.private-strings

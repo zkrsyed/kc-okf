@@ -1,0 +1,183 @@
+diff --git a/results/02-kcagent/run1/catalog/kc-okf-poc-261122.ga4_sample.yaml b/results/02-kcagent/run1/catalog/kc-okf-poc-261122.ga4_sample.yaml
+index 1eef23f..702b96c 100644
+--- a/results/02-kcagent/run1/catalog/kc-okf-poc-261122.ga4_sample.yaml
++++ b/results/02-kcagent/run1/catalog/kc-okf-poc-261122.ga4_sample.yaml
+@@ -12,3 +12,178 @@ resource:
+ aspects:
+   dataplex-types.global.bigquery-dataset:
+     type: DEFAULT
++  dataplex-types.global.overview:
++    content: >
++      The `kc-okf-poc-261122.ga4_sample` asset provides access to Google
++      Analytics 4 (GA4) sample e-commerce data. This dataset is based on the
++      publicly available GA4 obfuscated sample e-commerce dataset
++      (`bigquery-public-data.ga4_obfuscated_sample_ecommerce`) hosted within the
++      Google Cloud BigQuery Public Datasets program. It offers raw, event-level
++      data exported directly from Google Analytics 4, allowing users to analyze
++      web and e-commerce traffic.
++
++
++      The underlying data originates from the Google Merchandise Store, an
++      active online e-commerce website that sells Google-branded apparel,
++      accessories, and promotional items. The website features a standard GA4
++      web e-commerce implementation along with enhanced measurement events. This
++      provides a realistic representation of real-world retail web traffic and
++      user behavior.
++
++
++      To protect user privacy and commercial confidentiality, the dataset has
++      been intentionally obfuscated. Analysts will encounter placeholder values
++      like `<Other>`, `NULL`, and empty strings (`''`). As a result, the
++      dataset's internal consistency is slightly limited, and calculated metrics
++      cannot be directly compared to the live Google Merchandise Store's GA4
++      Demo Account.
++
++
++      ## Data Details
++
++
++      * **Source of Data:** Google Merchandise Store, an operational online
++      store.
++
++      * **Original Dataset:** Google Analytics 4 Obfuscated Sample E-Commerce
++      Dataset (`bigquery-public-data.ga4_obfuscated_sample_ecommerce`).
++
++      * **Time Range:** A three-month window covering November 1, 2020, to
++      January 31, 2021.
++
++      * **Table Schema & Format:** In the public source, the data is partitioned
++      into 92 daily tables (`events_YYYYMMDD`). In the local context, it is
++      represented under the dataset/table schema (such as
++      `kc_enrich_sample_data.ga_events` or
++      `kc-okf-poc-261122.ga4_sample.ga_events`).
++
++      * **Nested Structure:** The GA4 export uses a highly nested data schema,
++      storing details within repeated record types (arrays and structs) such as
++      `event_params`, `user_properties`, and `items`.
++
++      * **Data Obfuscation:** Critical proprietary metrics and identifying user
++      details are obfuscated using `<Other>`, `NULL`, or empty values.
++
++
++      ## Usage Details
++
++
++      * **Target Audience:** Ideal for data analysts, data scientists, and
++      developers wanting to practice querying raw GA4 export data without
++      setting up their own GA4 export.
++
++      * **Primary Learning Applications:**
++        * **Schema Familiarization:** Practice using the SQL `UNNEST()` function to flatten nested arrays and structs.
++        * **Query & Data Modeling:** Create and test SQL models for session funnels, user retention, and marketing attribution.
++        * **Dashboard Prototyping:** Connect to visualization software such as Looker Studio or Tableau to build e-commerce reporting dashboards.
++      * **Optimization & Cost Reduction:** Because GA4 event exports can be
++      large, always use partition filtering (e.g., using `event_date_dt` or
++      `_TABLE_SUFFIX`) to restrict the scanned date range and lower query costs.
++
++
++      ### Query Examples
++
++
++      Below are standard SQL queries for analyzing the GA4 events data. Note
++      that you may need to adjust the table reference depending on your specific
++      environment structure (e.g., `kc-okf-poc-261122.ga4_sample.ga_events`).
++
++
++      #### 1. High-Level Event and User Volume
++
++      This query counts the total events, unique users (using device cookies),
++      and active days in the dataset.
++
++      ```sql
++
++      SELECT 
++        COUNT(*) AS total_events, 
++        COUNT(DISTINCT user_pseudo_id) AS total_unique_users, 
++        COUNT(DISTINCT event_date) AS total_days
++      FROM 
++        `kc-okf-poc-261122.ga4_sample.ga_events`
++      ```
++
++
++      #### 2. Querying a Specific Date Range
++
++      To limit query scan costs and analyze daily active users during December
++      2020:
++
++      ```sql
++
++      SELECT 
++        event_date, 
++        COUNT(DISTINCT user_pseudo_id) as active_users 
++      FROM 
++        `kc-okf-poc-261122.ga4_sample.ga_events` 
++      WHERE 
++        event_date_dt BETWEEN PARSE_DATE('%Y%m%d', '20201201') AND PARSE_DATE('%Y%m%d', '20201231') 
++      GROUP BY 
++        event_date 
++      ORDER BY 
++        event_date ASC
++      ```
++
++
++      #### 3. Session Analysis (Unnesting Parameters)
++
++      In GA4, session IDs are stored as a nested event parameter. To count total
++      sessions, extract `ga_session_id` using `UNNEST()` on the `session_start`
++      event:
++
++      ```sql
++
++      SELECT 
++        COUNT(DISTINCT value.int_value) AS total_sessions
++      FROM 
++        `kc-okf-poc-261122.ga4_sample.ga_events`, 
++        UNNEST(event_params) 
++      WHERE 
++        event_name = 'session_start' 
++        AND key = 'ga_session_id'
++      ```
++
++
++      #### 4. E-Commerce Product Interest (Unnesting Items)
++
++      This query flattens the nested `items` array to identify the top 10
++      products most frequently added to the shopping cart:
++
++      ```sql
++
++      SELECT 
++        items.item_name, 
++        COUNT(*) AS added_to_cart_count 
++      FROM 
++        `kc-okf-poc-261122.ga4_sample.ga_events`, 
++        UNNEST(items) AS items
++      WHERE 
++        event_name = 'add_to_cart' 
++      GROUP BY 
++        items.item_name 
++      ORDER BY 
++        added_to_cart_count DESC 
++      LIMIT 10
++
++      ```
++
++
++      ## Citations
++
++
++      * **Overview of GA4 Sample Dataset**, `overview.md`
++
++      * **Using GA4 BigQuery Public Dataset**, `usage.md`
++
++      * **Querying Analytics Events**, `events.md`
++
++      * **Event and User Volume Examples**, `example1.md`
++
++      * **Date Range Query Examples**, `example2.md`
++
++      * **Session Analysis and Parameter Unnesting Examples**, `example3.md`
++
++      * **E-Commerce Product Interest and Item Unnesting Examples**,
++      `example4.md`
++    contentType: MARKDOWN

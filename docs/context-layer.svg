@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="960" height="600" fill="#ffffff"/>
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#5f6368"/></marker></defs>
+  <text x="20" y="30" font-size="18" font-weight="600" fill="#202124">Where Knowledge Catalog, Studio, kcmd and OKF sit in an agent's context layer</text>
+
+  <!-- column titles -->
+  <text x="20" y="62" font-weight="600" fill="#5f6368">1. WRITE (author + govern)</text>
+  <text x="350" y="62" font-weight="600" fill="#5f6368">2. STORE (system of record)</text>
+  <text x="640" y="62" font-weight="600" fill="#5f6368">3. SERVE (how an agent reads it)</text>
+
+  <!-- write column -->
+  <rect x="20" y="76" width="290" height="92" rx="8" fill="#fef7e0" stroke="#fdd663"/>
+  <text x="32" y="98" font-weight="600" fill="#202124">Sources</text>
+  <text x="32" y="118" fill="#3c4043">GCS docs, policy docs, Drive/Confluence/</text>
+  <text x="32" y="136" fill="#3c4043">GitHub, BigQuery query history, glossaries,</text>
+  <text x="32" y="154" fill="#3c4043">eval set (question + golden SQL)</text>
+
+  <rect x="20" y="186" width="290" height="70" rx="8" fill="#e8f0fe" stroke="#8ab4f8"/>
+  <text x="32" y="208" font-weight="600" fill="#174ea6">Path A: Studio enrichment agent</text>
+  <text x="32" y="228" fill="#3c4043">Google's hosted agent drafts pages,</text>
+  <text x="32" y="246" fill="#3c4043">tests them with the eval set</text>
+
+  <rect x="20" y="272" width="290" height="70" rx="8" fill="#e8f0fe" stroke="#8ab4f8"/>
+  <text x="32" y="294" font-weight="600" fill="#174ea6">Path B: humans / your tools</text>
+  <text x="32" y="314" fill="#3c4043">Markdown in git (OKF layout)</text>
+  <text x="32" y="332" fill="#3c4043">then kcmd push, or the console editor</text>
+
+  <rect x="20" y="360" width="290" height="58" rx="8" fill="#fce8e6" stroke="#f28b82"/>
+  <text x="32" y="382" font-weight="600" fill="#a50e0e">Review gate: change request</text>
+  <text x="32" y="402" fill="#3c4043">approve / remove per page, then publish</text>
+
+  <line x1="165" y1="168" x2="165" y2="186" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="165" y1="256" x2="165" y2="272" stroke="#5f6368"/>
+  <line x1="165" y1="342" x2="165" y2="360" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="310" y1="389" x2="350" y2="260" stroke="#5f6368" marker-end="url(#a)"/>
+
+  <!-- store column -->
+  <rect x="350" y="76" width="260" height="390" rx="10" fill="#e6f4ea" stroke="#81c995"/>
+  <text x="364" y="100" font-weight="600" fill="#0d652d">Knowledge Catalog</text>
+  <text x="364" y="118" fill="#3c4043">context set = entry group</text>
+  <text x="364" y="136" fill="#3c4043">(IAM, versions, audit, lineage)</text>
+  <rect x="366" y="150" width="228" height="300" rx="6" fill="#ffffff" stroke="#5f6368"/>
+  <text x="378" y="172" font-family="Consolas, monospace" fill="#202124">agents        (root index)</text>
+  <text x="378" y="194" font-family="Consolas, monospace" fill="#202124">assets/.../events</text>
+  <text x="390" y="212" fill="#5f6368">table context: what data IS</text>
+  <text x="378" y="236" font-family="Consolas, monospace" fill="#202124">documents/</text>
+  <text x="390" y="254" font-family="Consolas, monospace" fill="#202124">metrics, governance</text>
+  <text x="390" y="272" fill="#5f6368">rules and definitions</text>
+  <text x="378" y="300" font-family="Consolas, monospace" fill="#a50e0e">playbooks/   (proposed)</text>
+  <text x="390" y="318" fill="#a50e0e">process context: how to</text>
+  <text x="390" y="336" fill="#a50e0e">answer a known question type</text>
+  <text x="378" y="366" fill="#3c4043">each page = Dataplex entry,</text>
+  <text x="378" y="384" fill="#3c4043">text in the overview aspect</text>
+  <text x="378" y="402" fill="#3c4043">(Markdown); links between</text>
+  <text x="378" y="420" fill="#3c4043">pages = entry links</text>
+
+  <!-- serve column -->
+  <rect x="640" y="76" width="300" height="104" rx="8" fill="#f3e8fd" stroke="#c58af9"/>
+  <text x="652" y="98" font-weight="600" fill="#681da8">S1: kcmd pull, OKF files on disk</text>
+  <text x="652" y="118" fill="#3c4043">kcmd init --kb ... --format okf; kcmd pull</text>
+  <text x="652" y="136" fill="#3c4043">gives an OKF bundle: index.md + pages.</text>
+  <text x="652" y="154" fill="#3c4043">Your "OKF agent" works unchanged.</text>
+  <text x="652" y="172" fill="#5f6368">offline, cheap; stale until the next pull</text>
+
+  <rect x="640" y="196" width="300" height="104" rx="8" fill="#f3e8fd" stroke="#c58af9"/>
+  <text x="652" y="218" font-weight="600" fill="#681da8">S2: kcmd mcp (local MCP server)</text>
+  <text x="652" y="238" fill="#3c4043">tools: list-entries, lookup-entry</text>
+  <text x="652" y="256" fill="#3c4043">LangGraph via an MCP adapter</text>
+  <text x="652" y="274" fill="#3c4043">(also modify-entry: a write, turn off)</text>
+  <text x="652" y="292" fill="#5f6368">reads the local snapshot</text>
+
+  <rect x="640" y="316" width="300" height="104" rx="8" fill="#f3e8fd" stroke="#c58af9"/>
+  <text x="652" y="338" font-weight="600" fill="#681da8">S3: Dataplex API, live</text>
+  <text x="652" y="358" fill="#3c4043">entries.get / lookup / search with IAM</text>
+  <text x="652" y="376" fill="#3c4043">wrap as 2-3 agent tools, or feed your</text>
+  <text x="652" y="394" fill="#3c4043">own embeddings/retriever index from it</text>
+  <text x="652" y="412" fill="#5f6368">always current; needs GCP credentials</text>
+
+  <line x1="610" y1="128" x2="640" y2="128" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="610" y1="248" x2="640" y2="248" stroke="#5f6368" marker-end="url(#a)"/>
+  <line x1="610" y1="368" x2="640" y2="368" stroke="#5f6368" marker-end="url(#a)"/>
+
+  <rect x="640" y="436" width="300" height="48" rx="8" fill="#ffffff" stroke="#5f6368"/>
+  <text x="652" y="456" font-weight="600" fill="#202124">Your agent (LangGraph, local)</text>
+  <text x="652" y="474" fill="#3c4043">reads index, then pages, then writes SQL</text>
+
+  <text x="20" y="510" font-weight="600" fill="#202124">In one line:</text>
+  <text x="20" y="530" fill="#3c4043">Knowledge Catalog is the database of context (governed, reviewed). OKF is its file format on disk (like a .bacpac export of it).</text>
+  <text x="20" y="550" fill="#3c4043">kcmd is the sync tool between the two (like git pull / push). Your agent reads either the files (S1), an MCP server (S2) or the live API (S3).</text>
+  <text x="20" y="578" fill="#9a6700">S1 and S2 are documented in kcmd 0.2.5; S1 is being tested in step 3/4. S3 tool design and the playbooks/ folder are proposals (guess) to test.</text>
+</svg>

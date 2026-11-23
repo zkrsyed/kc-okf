@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="960" height="520" fill="#ffffff"/>
+  <text x="20" y="30" font-size="18" font-weight="600" fill="#202124">The POC in one picture: what we did, in order (2026-11-22/23)</text>
+  <line x1="60" y1="60" x2="60" y2="500" stroke="#9aa0a6" stroke-width="2"/>
+
+  <g>
+    <circle cx="60" cy="70" r="12" fill="#e8eaed" stroke="#5f6368"/><text x="55" y="75" font-weight="600">0</text>
+    <text x="84" y="68" font-weight="600" fill="#202124">Setup</text>
+    <text x="84" y="86" fill="#3c4043">New project, budget alert, APIs, gcloud profile; copy of Google's GA4 sample as one partitioned table (4.3 M rows, 92 days).</text>
+  </g>
+  <g>
+    <circle cx="60" cy="130" r="12" fill="#e8eaed" stroke="#5f6368"/><text x="55" y="135" font-weight="600">1</text>
+    <text x="84" y="128" font-weight="600" fill="#202124">Inspect the catalog</text>
+    <text x="84" y="146" fill="#3c4043">Google auto-creates entries with schema (109 nested fields) but no meaning: no overview, no column descriptions, no glossary.</text>
+  </g>
+  <g>
+    <circle cx="60" cy="190" r="12" fill="#e8eaed" stroke="#5f6368"/><text x="55" y="195" font-weight="600">2</text>
+    <text x="84" y="188" font-weight="600" fill="#202124">kcagent (Google's open-source sample agent)</text>
+    <text x="84" y="206" fill="#3c4043">Needed 2 patches to run; writes one cited Markdown overview per entry; two runs share 0 sentences; dataset-level SQL wrong 8/8.</text>
+  </g>
+  <g>
+    <circle cx="60" cy="250" r="12" fill="#e8f0fe" stroke="#1a73e8"/><text x="55" y="255" font-weight="600">3</text>
+    <text x="84" y="248" font-weight="600" fill="#174ea6">Knowledge Studio enrichment (the main test)</text>
+    <text x="84" y="266" fill="#3c4043">Made-up policy doc + Google docs + 12 golden-SQL eval. 29 min run, 9 proposed pages, eval 67% to 100%, every policy fact landed.</text>
+    <text x="84" y="284" fill="#3c4043">Reviewed per page (removed 1, approved 8). Read back as OKF files and through kcmd's MCP server.</text>
+  </g>
+  <g>
+    <circle cx="60" cy="320" r="12" fill="#e6f4ea" stroke="#188038"/><text x="55" y="325" font-weight="600">4</text>
+    <text x="84" y="318" font-weight="600" fill="#0d652d">OKF and hand-written playbooks</text>
+    <text x="84" y="336" fill="#3c4043">OKF moved out of Google (v0.3). kcmd push writes directly (no review, not atomic); change-request API is reviewed and</text>
+    <text x="84" y="354" fill="#3c4043">blocks self-approval (403, even for Owner).</text>
+  </g>
+  <g>
+    <circle cx="60" cy="390" r="12" fill="#fef7e0" stroke="#f9ab00"/><text x="55" y="395" font-weight="600">5</text>
+    <text x="84" y="388" font-weight="600" fill="#202124">Agent test: a local LangGraph NL-to-SQL agent</text>
+    <text x="84" y="406" fill="#3c4043">15 questions x 3 setups. No context 6/15; KC context as OKF files 10/15; via kcmd MCP 12/15. Held-out policy questions: 0/3 vs 3/3.</text>
+  </g>
+  <g>
+    <circle cx="60" cy="450" r="12" fill="#fce8e6" stroke="#d93025"/><text x="55" y="455" font-weight="600">6</text>
+    <text x="84" y="448" font-weight="600" fill="#202124">Verdict</text>
+    <text x="84" y="466" fill="#3c4043">Per capability: use Google, needs a custom piece, or combine. Plus a checklist for comparing with home-grown context agents.</text>
+  </g>
+  <text x="84" y="505" fill="#5f6368">Cost: about USD 1 of BigQuery scans in total (inside the free tier); Studio tokens free in Preview; Gemini tokens for steps 2 and 5 billed by Vertex (not priced here).</text>
+</svg>
