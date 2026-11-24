@@ -1,0 +1,40 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents/computing-standard-ecommerce-metrics",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-22T23:51:30.523198Z",
+  "updateTime": "2026-11-22T23:51:30.523198Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-22T23:51:30.523198Z",
+      "updateTime": "2026-11-22T23:51:30.523198Z",
+      "data": {
+        "type": "knowledge-base",
+        "job": {
+          "name": "enrichment-agent/enrich-9eb2ed9719624d4e",
+          "runTime": "2026-11-22T22:16:40Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-22T23:51:30.523198Z",
+      "updateTime": "2026-11-22T23:51:30.523198Z",
+      "data": {
+        "content": "# Computing Standard E-Commerce Metrics\n\n## Purpose\nThis page provides the operational logic, business rules, and SQL patterns required to calculate core e-commerce key performance indicators\u2014such as net revenue, engaged sessions, active buyers, and cart conversion rate\u2014from Google Analytics 4 (GA4) clickstream events.\n\n## Definitions\n- **Session**: A visit identified by combining `user_pseudo_id` and the nested integer event parameter `ga_session_id`.\n- **Engaged Session**: A session that lasted longer than 10 seconds, recorded 2 or more `page_view` events, or contained a `purchase` event.\n- **Active Buyer (28d)**: A distinct `user_pseudo_id` with at least one `purchase` event within the trailing 28 days.\n- **Net Merch Revenue**: The total of `ecommerce.purchase_revenue_in_usd` minus `ecommerce.refund_value_in_usd`.\n- **Cart Conversion Rate**: The count of distinct sessions containing a `purchase` event divided by the count of distinct sessions containing an `add_to_cart` event.\n\n## How to Query\n- **Partition pruning**: Always filter queries using the partition column `event_date_dt` (or `_TABLE_SUFFIX` on wildcard tables `events_*`) to limit scanned bytes and cost.\n- **Session extraction**: Extract `ga_session_id` from the nested `event_params` array where `key = 'ga_session_id'` and read `value.int_value`.\n- **Currency selection**: Aggregate revenue strictly using `ecommerce.purchase_revenue_in_usd` and `ecommerce.refund_value_in_usd`; never use local-currency fields.\n- **Item-level unnesting**: Flatten the nested `items` array (`CROSS JOIN UNNEST(items) AS items`) when analyzing item-level interactions such as product additions or catalog views.\n- **Attribution filtering**: Exclude rows where `traffic_source.source = '(data deleted)'` from all marketing attribution queries.\n- **Data finalization window**: Do not report on the trailing 3 days as final; data is refreshed daily and finalizes 72 hours after the close of the day.\n- **Privacy and governance constraints**: `user_pseudo_id` is Tier C2 and must not be joined with external CRM/email lists or exported outside the analytics project. Geographic fields `geo.city` and `geo.metro` are Tier C3 and must only be presented aggregated to region or country level.\n\n## Method\n\n### 1. Extracting Sessions and Calculating Cart Conversion Rate\nTo determine session-level conversion, isolate sessions that triggered `add_to_cart` and `purchase`, then divide the converted sessions by the cart-initiating sessions [1], [3].\n\n### 3. Active Buyers (Trailing 28 Days)\nCount distinct pseudonymous users who performed a `purchase` within the 28-day window preceding a target date [1].\n\n## Traps\n- **Underreported numbers due to processing lag.** Generating official metrics for dates within the last 72 hours yields incomplete counts; exclude the trailing 3 days from finalized reporting.\n\n## Source References\n1. Merch Store Clickstream: data policy and metric definitions \u2014 defines formulas for engaged sessions, active buyers (28d), net merch revenue, cart conversion rate, reporting exclusions, and sensitivity tiers.\n2. Session Analysis (Unnesting Parameters) \u2014 describes extracting `ga_session_id` from the nested `event_params` array.\n3. E-Commerce Product Interest \u2014 details flattening the nested `items` array to analyze product-level events.",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents",
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

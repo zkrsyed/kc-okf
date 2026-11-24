@@ -18,6 +18,7 @@ from __future__ import annotations
 import csv
 import datetime as dt
 import json
+import os
 import re
 from decimal import Decimal
 from pathlib import Path
@@ -25,7 +26,7 @@ from pathlib import Path
 from google.cloud import bigquery
 
 ROOT = Path(__file__).resolve().parents[2]
-RES = ROOT / "results/05-agent"
+RES = ROOT / os.environ.get("KC_RUNS_DIR", "results/05-agent")  # KC_RUNS_DIR overrides (run 2)
 bq = bigquery.Client(project="kc-okf-poc-261122")
 CAP = bigquery.QueryJobConfig(maximum_bytes_billed=3 * 1024**3)
 cache: dict[str, list[list]] = {}
@@ -117,7 +118,8 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
-    names = {"A": "A: no context", "B": "B: KC context as OKF files", "C": "C: KC context via kcmd MCP"}
+    names = {"A": "A: no context", "B": "B: KC context as OKF files", "C": "C: KC context via kcmd MCP",
+             "B2": "B2: run 2 context as OKF files", "C2": "C2: run 2 context via kcmd MCP"}
     setups = sorted({r["setup"] for r in rows})
     L = ["| Setup | Pass | Held-out (13-15) | Partition filter | Avg tool calls | Avg context reads | Avg input tokens | Avg seconds | GB billed |", "|---|---|---|---|---|---|---|---|---|"]
     for s in setups:

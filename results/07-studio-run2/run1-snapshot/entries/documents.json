@@ -1,0 +1,40 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-22T23:51:30.438760Z",
+  "updateTime": "2026-11-23T00:17:00.897327Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-22T23:51:30.438760Z",
+      "updateTime": "2026-11-22T23:51:30.438760Z",
+      "data": {
+        "type": "knowledge-base-index",
+        "job": {
+          "name": "enrichment-agent/enrich-9eb2ed9719624d4e",
+          "runTime": "2026-11-22T22:16:40Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-22T23:51:30.438760Z",
+      "updateTime": "2026-11-23T00:17:00.873423Z",
+      "data": {
+        "content": "# Documents\n\nCross-cutting reference pages for understand what each field means, how to query it correctly, and which business rules apply for analysts and AI agents: Analytics Guidelines and Operations.\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/documents/computing-standard-ecommerce-metrics | Computing Standard E-Commerce Metrics | file | How do I calculate net revenue, engaged sessions, active buyers, and cart conversion rates across events? |\n| catalog/documents/data-governance-and-quality-boundaries | Data Governance and Quality Boundaries | file | What data is obfuscated, restricted by compliance tiers, or subject to finality lag and retention limits? |\n| catalog/documents/playbook-final-daily-net-revenue | Playbook: daily net revenue, final days only | file | How do I report net merch revenue per day without including days that are not final yet? |",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/agents",
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

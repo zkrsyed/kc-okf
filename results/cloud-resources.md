@@ -22,6 +22,9 @@ Every resource this POC creates, and how to remove it. Remove resources by hand 
 | 2026-11-22 | Change request `345f4080-...` (state APPROVED) and the 7 published document entries + 1 entry link inside `ga4-merch-context` | Removed with the context set (guess); entries can also be deleted one by one from the console |
 | 2026-11-23 | Context set entry `documents/playbook-final-daily-net-revenue` (pushed with `kcmd push`, step 4); the `documents` and `agents` entries were updated by the same push | Removed with the context set (guess); or delete the page in the console |
 | 2026-11-23 | Change request `919699e7-...` (state NEW, authored by the user: the engaged-sessions playbook, never approved) | `curl -X DELETE .../changeRequests/919699e7-aa2f-42d9-9bb5-d1f1f8e4ee3b` (an author can delete a NEW request with `dataplex.changeRequests.delete`; guess, not tried) |
+| 2026-11-24 | Dataplex context set `ga4-merch-context-r2` (us), created in the console for Studio run 2 (step 7) | Console: Knowledge Studio > Context sets > Delete (needs `dataplex.contentAdmin`) |
+| 2026-11-24 | Knowledge Studio enrichment task `ga4-events-enrichment-r2` (us-central1), run `94165469-...` | Console: Knowledge Studio > Enrichments > ga4-events-enrichment-r2 > Delete |
+| 2026-11-24 | Change request `9b4cc44a-...` (APPROVED) and its 7 document entries + 1 entry link in `ga4-merch-context-r2` | Removed with the context set (guess) |
 
 **Remember:** Google's OKF connector demo creates a project-wide `okf` aspect type that its cleanup script does not remove.
 

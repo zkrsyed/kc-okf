@@ -1,0 +1,291 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/changeRequests/9b4cc44a-6806-44ff-8861-8f02cf21fa0f",
+  "uid": "9b4cc44a-6806-44ff-8861-8f02cf21fa0f",
+  "createTime": "2026-11-24T20:10:32.291226167Z",
+  "updateTime": "2026-11-24T20:24:27.691055926Z",
+  "justification": "Enrichment Agent Proposal: Knowledge Base Entry",
+  "labels": {
+    "source": "knowledge_agent",
+    "generator": "enrichment_agent"
+  },
+  "author": "kc-studio-enricher@kc-okf-poc-261122.iam.gserviceaccount.com",
+  "state": "APPROVED",
+  "resource": "//dataplex.googleapis.com/projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+  "approver": "YOUR_EMAIL",
+  "etag": "Ya4v0DKLUVyZhJZ_Py0YkvsLvbgroYy06QAkYzTiLiE",
+  "changeType": "BATCH_CHANGE_METADATA",
+  "batchChangeMetadataRequest": {
+    "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+    "changes": [
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "agents",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/agents",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base-root",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Merch Store Clickstream Knowledge Base\n\nIndex of the catalog root (2 item(s)).\n\n## What this is\n\nThis knowledge base covers digital merchandising, e-commerce clickstream tracking, user journeys, conversion funnels, and marketing attribution across `kc-okf-poc-261122.ga4_sample.events` (governance code `MSC-417`, copied from `bigquery-public-data.ga4_obfuscated_sample_ecommerce`). Each row represents a single clickstream event, with session identifiers nested inside `event_params` and product interactions stored in the `items` array. Data coverage is a fixed 92-day historical benchmark spanning November 1, 2020, to January 31, 2021, with no incoming data. Monetary metrics are strictly reported in USD via dedicated columns like `ecommerce.purchase_revenue_in_usd`, while sequence timestamps such as `event_previous_timestamp` are recorded in microseconds.\n\n## Top traps\n\n- **Time interval calculations are off by a factor of one million.** The `event_previous_timestamp` field is an integer stored in microseconds.\n- **Queries for recent dates return zero rows.** Dataset MSC-417 is a fixed historical benchmark covering 2020-11-01 through 2021-01-31 only.\n\n## How to navigate\n\nLook entries up by the ids below. A lookup returns only the entries it names -- a parent never arrives with its children -- so read this page for the id you want, then fetch that id.\n\n- `assets` — 1 table overlays, addressed as `assets/bigquery/\u003cproject\u003e/\u003cdataset\u003e/\u003ctable\u003e`. A dataset entry is its own index -- look the dataset up to see which tables it holds.\n- `documents` — 2 pages of knowledge rather than objects -- operational, one topic each.\n\nBudget about three searches and three lookups per question: search to find the right tier or dataset, then look up the two or three entries it names.\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets | Assets | folder | Index of catalog/assets (1 item(s)). |\n| catalog/documents | Documents | folder | Cross-cutting reference pages for Document column descriptions, sensitivity tiers, and personal data flags for the events table, and define business glossary terms and data rules from the data policy: Analytics Operations. |",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "assets",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base-index",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Assets\n\nIndex of catalog/assets (1 item(s)).\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample | Ga4 Sample | folder | Index of catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample (1 item(s)). |",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/agents",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "assets/bigquery/kc-okf-poc-261122/ga4_sample",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base-index",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Ga4 Sample\n\nIndex of catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample (1 item(s)).\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample/events | events | file | Context overlay for events. |",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "assets/bigquery/kc-okf-poc-261122/ga4_sample/events",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample/events",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "table-context",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# events Overview\n\nThe `events` table (business name: **Merch Store Clickstream**, dataset code: **MSC-417**) stores raw event-level user interaction and e-commerce tracking data [1]. The table is an ingest copy of the public Google Analytics 4 (GA4) sample e-commerce export, spanning the 92-day historical window from 2020-11-01 to 2021-01-31 [1]. Each record represents a single client-side event emitted during a user interaction, capturing event parameters, user and device identifiers, geolocation attributes, traffic acquisition dimensions, and e-commerce transactions [1].\n\n## Purpose\n\nThe primary purpose of `events` is to provide clickstream analytics, conversion funnel tracking, attribution analysis, and digital merchandising telemetry for the online merchandise store [1]. In access tickets and project communications, this table and its dataset are referenced by the identifier **MSC-417** [1]. The table dataset represents a fixed historical benchmark covering 2020-11-01 through 2021-01-31; no newer partitions are delivered [1].\n\n## Columns & Metrics\n\n### Column Reference & Data Classification\n\nEach column is detailed below with its base data type and data classification tier as designated by the governance policy [1]. Where a column or nested record is assigned a formal classification tier in the policy, its status as personal data is noted [1]. Columns not explicitly categorized in the policy carry standard metadata without an assigned policy tier.\n\n*   `event_date` (`STRING`): Date of the event formatted as a text string.\n*   `event_timestamp` (`INTEGER`): Timestamp indicating when the client logged the event.\n*   `event_name` (`STRING`): Standard or custom event identifier (for example, `purchase` or `add_to_cart`).\n*   `event_params` (`RECORD`, repeated): Key-value collection storing contextual parameters and telemetry associated with the event.\n*   `event_previous_timestamp` (`INTEGER`): Microsecond timestamp of the prior event in the sequence.\n*   `event_value_in_usd` (`FLOAT`): Monomorphic event value.\n*   `event_bundle_sequence_id` (`INTEGER`): Sequential identifier assigned to the upload batch.\n*   `event_server_timestamp_offset` (`INTEGER`): Microsecond offset between client timestamp capture and receipt by Google servers.\n*   `user_id` (`STRING`): First-party authenticated user identifier.\n*   `user_pseudo_id` (`STRING`): **Tier C2 (pseudonymous)** personal data; the pseudonymized client cookie or device-instance identifier [1].\n*   `privacy_info` (`RECORD`): Container holding privacy-related event settings, such as consent state.\n*   `user_properties` (`RECORD`, repeated): Key-value bag containing persistent dimensions set at the user level.\n*   `user_first_touch_timestamp` (`INTEGER`): Microsecond timestamp marking when the user first interacted with the property.\n*   `user_ltv` (`RECORD`): Nested lifetime value record computing customer value metrics over time.\n*   `device` (`RECORD`): **Tier C1 (internal)** non-personal data container capturing hardware, operating system, browser, and network attributes [1].\n*   `geo` (`RECORD`): Geolocation attributes determined from client network endpoints [1].\n    *   `geo.city`: **Tier C3 (restricted)** quasi-identifying personal data; city-level geographic designation [1].\n    *   `geo.metro`: **Tier C3 (restricted)** quasi-identifying personal data; metropolitan market area designation [1].\n    *   Other `geo.*` fields: Standard regional and country geographic descriptors.\n*   `app_info` (`RECORD`): Application environment information and software build versions.\n*   `traffic_source` (`RECORD`): **Tier C1 (internal)** non-personal data container detailing the marketing channel, medium, and referral source [1].\n*   `stream_id` (`INTEGER`): Numeric identifier of the GA4 measurement data stream.\n*   `platform` (`STRING`): Platform environment delivering the event (e.g., web).\n*   `event_dimensions` (`RECORD`): Operational dimensions accompanying the event record.\n*   `ecommerce` (`RECORD`): Transaction-level and order-level e-commerce parameters [1].\n    *   `ecommerce.purchase_revenue_in_usd`: Total gross purchase revenue recorded in USD [1].\n    *   `ecommerce.refund_value_in_usd`: Total refunded value recorded in USD [1].\n*   `items` (`RECORD`, repeated): Array of item-level line records detailing individual merchandise SKUs, quantities, and pricing.\n*   `event_date_dt` (`DATE`): Date-typed representation of the event partition, used for partition-pruning filters [1].\n\n### Business Glossary & Metric Definitions\n\n*   **Engaged Session**: A user visit that meets at least one qualification threshold: duration exceeding 10 seconds, logging 2 or more page views, or containing at least one purchase transaction [1].\n*   **Session Identification**: The composite session identity formed by concatenating `user_pseudo_id` with the `ga_session_id` event parameter [1].\n*   **Active Buyer (28d)**: A user represented by a distinct `user_pseudo_id` that has logged at least one `purchase` event within the trailing 28 calendar days [1].\n*   **Net Merch Revenue**: The total monetary merchandise yield, defined as the mathematical difference: `SUM(ecommerce.purchase_revenue_in_usd) - SUM(ecommerce.refund_value_in_usd)` [1].\n*   **Cart Conversion Rate**: The proportion of shopping sessions resulting in an order, calculated as the count of unique sessions with a `purchase` event divided by the count of unique sessions with an `add_to_cart` event [1].\n\n## Lineage\n\n*   **Upstream Pipeline**: Ingested directly as a verbatim copy of the public Google Analytics 4 (GA4) sample e-commerce export dataset [1].\n*   **Downstream Usage**: Serves as the base clickstream layer for merchandising metrics, attribution analyses, and digital store reporting [1].\n\n## Owner\n\n*   **Owning Team**: Digital Insights Guild [1].\n*   **Data Steward**: Digital Insights Guild on-call steward, reachable via the `#msc-417-data` Slack channel [1].\n\n## Governance\n\nThe data policy mandates compliance with the following operational rules:\n\n1.  **Pseudonymous Identifier Export Restriction**: `user_pseudo_id` is designated as Tier C2 (pseudonymous) personal data; it must never be exported outside the analytics BigQuery project and must never be joined with customer relationship management (CRM) systems or marketing email distribution lists [1].\n2.  **Geographic Reporting Masking**: Nested fields `geo.city` and `geo.metro` are classified as Tier C3 (restricted) data; dashboards and downstream reports must aggregate location strictly to the region or country level, and city-level data must never be displayed [1].\n3.  **Internal Classification**: Attributes under `device.*` and `traffic_source.*` are classified as Tier C1 (internal) data with no specialized access constraints [1].\n4.  **Data Retention and Purging**: The Digital Insights Guild is required to delete all records older than 14 months pursuant to retention policy requirements [1].\n5.  **Reporting Finality Lag**: The table refreshes on a daily schedule, with data for any given date considered finalized 72 hours after day close; analysts must not report numbers from the most recent 3 days as final figures [1].\n6.  **Monetary Reporting Standard**: All commercial and revenue calculations must be reported strictly in United States Dollars (USD) using the dedicated USD columns (`ecommerce.purchase_revenue_in_usd`, `ecommerce.refund_value_in_usd`), without relying on local-currency fields [1].\n7.  **Marketing Attribution Exclusions**: All queries computing marketing attribution must explicitly filter out records where `traffic_source.source` equals `'(data deleted)'` [1].\n8.  **Mandatory Partition Pruning**: Analytical queries must include partition filters targeting `event_date_dt` to restrict query scan bytes to the intended date ranges [1].\n\n## Data Quality\n\n*   **Total Row Count**: The table contains 4,295,584 rows [2].\n*   **Temporal Boundary**: The dataset spans exactly 92 days between 2020-11-01 and 2021-01-31 [1]. As a static snapshot of public historical sample data, no newer data partitions arrive into this table [1].\n\n## Usage\n\n*   **Funnel Evaluation**: Cart conversion rate should be derived by evaluating whether a distinct session encountered both `add_to_cart` and `purchase` events [1].\n*   **Attribution Cleansing**: Upstream attribution pipelines must incorporate a `WHERE traffic_source.source != '(data deleted)'` predicate to prevent tracking artifacts from distorting source-level performance [1].\n*   **Query Cost Optimization**: All BigQuery jobs querying this table must supply a predicate against `event_date_dt` to prune partition scans [1].\n\n## Table Info\n\n`kc-okf-poc-261122.ga4_sample.events`\n\n## Source References\n1. Merch Store Clickstream: data policy and metric definitions\n2. [table metadata: kc-okf-poc-261122.ga4_sample.events](about:sanitized) — the table's own BigQuery schema, read directly; the page STATES column names, types and modes from it",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryLinkRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryLinkId": "link-events-events-cd4bc154",
+          "entryLink": {
+            "entryLinkType": "projects/dataplex-types/locations/global/entryLinkTypes/reference",
+            "entryReferences": [
+              {
+                "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample/events",
+                "type": "SOURCE"
+              },
+              {
+                "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events",
+                "type": "TARGET"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "documents",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base-index",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Documents\n\nCross-cutting reference pages for Document column descriptions, sensitivity tiers, and personal data flags for the events table, and define business glossary terms and data rules from the data policy: Analytics Operations.\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/documents/calculating-core-metrics | Calculating Core Clickstream and Ecommerce Metrics | file | How do I correctly compute unique sessions, active buyers, engaged sessions, net revenue, and conversion rate across nested event parameters? |\n| catalog/documents/pitfalls | Pitfalls that silently produce wrong answers | file | What querying traps, unfinalized date windows, obfuscation placeholders, and compliance violations silently corrupt analysis? |",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/agents",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "documents/calculating-core-metrics",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents/calculating-core-metrics",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Calculating Core Clickstream and Ecommerce Metrics\n\n## Purpose\nThis page documents how to calculate core clickstream and e-commerce metrics—including unique sessions, active buyers, engaged sessions, net revenue, and cart conversion rate—from nested event parameters in GA4 clickstream exports, alongside table-level governance rules, sensitivity tiers, and operational constraints [1, 2, 3, 4].\n\n## Definitions\n- **Active Buyer (28d)**: A distinct `user_pseudo_id` associated with at least one `purchase` event occurring within the trailing 28 days [1].\n- **Engaged Session**: A session (`user_pseudo_id` plus `ga_session_id`) that lasts longer than 10 seconds, contains 2 or more page views, or records a `purchase` event [1].\n- **Net Merch Revenue**: The total monetary value computed as the sum of `ecommerce.purchase_revenue_in_usd` minus the sum of `ecommerce.refund_value_in_usd`, reported strictly in USD [1].\n- **Cart Conversion Rate**: The ratio calculated by dividing the number of unique sessions containing a `purchase` event by the number of unique sessions containing an `add_to_cart` event [1].\n\n## How to Query\n\n### Data Policy and Sensitivity Tiers\nField classifications and usage constraints are governed by policy `MSC-417` [1]:\n- `user_pseudo_id`: Classified as **Tier C2 (pseudonymous personal data)** [1]. Never export outside the analytics project, and never join with CRM records or email lists [1].\n- `geo.city` and `geo.metro`: Classified as **Tier C3 (restricted)** [1]. Must never be reported at the city level in dashboards; aggregate strictly to region or country [1].\n- `device.*` and `traffic_source.*`: Classified as **Tier C1 (internal)** with no additional reporting restrictions [1].\n- All other table columns: Classified as **Tier C1 (internal)** [1].\n\n### Governance Rules and Reporting Constraints\n- **Table Scope & Grain**: Applies to `kc-okf-poc-261122.ga4_sample.events` (business name: *Merch Store Clickstream*, dataset code `MSC-417`), owned by the Digital Insights Guild [1].\n- **Partition Filtering**: Always include a partition filter on `event_date_dt` (or `_TABLE_SUFFIX` on partitioned exports) in the `WHERE` clause to avoid full-table scans [1].\n- **Date Window**: The dataset contains 92 daily partitions covering `2020-11-01` to `2021-01-31`; no newer data will arrive [1].\n- **Finality Window**: Data loads once daily and finalizes 72 hours after day-end [1]. Do not report final figures on the trailing 3 days [1].\n- **Retention**: Rows older than 14 months must be deleted [1].\n- **Marketing Attribution Exclusion**: Exclude records where `traffic_source.source = '(data deleted)'` from all attribution queries [1].\n\n### SQL Pattern: Unnesting Sessions and Items\n\nTo query product details, flatten the nested `items` array using `UNNEST(items)` [4].\n\n## Method\nTo compute core metrics across the clickstream log:\n\n1. **Prune Partitions**: Apply a filter on `event_date_dt` or `_TABLE_SUFFIX` to scope the query window [1].\n4. **Aggregate Metric Numerators and Denominators**:\n   - For **Engaged Sessions**, identify session IDs meeting duration (\u003e10s), page view count (\u003e=2), or purchase criteria [1].\n   - For **Net Merch Revenue**, compute `SUM(ecommerce.purchase_revenue_in_usd) - SUM(ecommerce.refund_value_in_usd)` [1].\n\n## Traps\n- **Marketing attribution counts include deleted traffic.** You omitted the exclusion filter; always add `WHERE traffic_source.source != '(data deleted)'` on marketing reports [1].\n- **Full table scan costs are high.** You queried without the partition column; always supply an explicit date predicate on `event_date_dt` or `_TABLE_SUFFIX` [1].\n- **Net revenue does not reconcile across regions.** You summed local currency columns instead of USD fields; sum `ecommerce.purchase_revenue_in_usd` and subtract `ecommerce.refund_value_in_usd` [1].\n- **City-level dimensions appear in customer-facing dashboards.** You published `geo.city` or `geo.metro`; Tier C3 policy requires rolling up geographic metrics to region or country [1].\n\n## Source References\n1. `gs://kc-okf-poc-261122-signals/merch-store-data-policy.md` — states sensitivity tiers, data retention, partition filtering rules, attribution exclusions, and definitions for net merch revenue, active buyers, engaged sessions, and cart conversion rates.\n2. `gs://kc-okf-poc-261122-signals/google-sample/example3.md` — states that session IDs reside nested inside `event_params` under `ga_session_id` and describes isolating `session_start` to count sessions.\n3. `gs://kc-okf-poc-261122-signals/google-sample/example1.md` — states that unique users are identified via device cookies in `user_pseudo_id`.\n4. `gs://kc-okf-poc-261122-signals/google-sample/example4.md` — states that e-commerce item attributes are stored in a nested `items` array requiring `UNNEST(items)` to analyze product events.\n\nSee also: `assets/bigquery/kc-okf-poc-261122/ga4_sample/events` — the table entry for `kc-okf-poc-261122.ga4_sample.events`.",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      },
+      {
+        "createEntryRequest": {
+          "parent": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2",
+          "entryId": "documents/pitfalls",
+          "entry": {
+            "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents/pitfalls",
+            "entryType": "projects/dataplex-types/locations/global/entryTypes/document",
+            "aspects": {
+              "dataplex-types.global.document": {
+                "aspectType": "projects/dataplex-types/locations/global/aspectTypes/document",
+                "data": {
+                  "type": "knowledge-base",
+                  "job": {
+                    "name": "enrichment-agent/enrich-7939c61dc2724775",
+                    "runTime": "2026-11-24T19:45:19Z"
+                  }
+                }
+              },
+              "dataplex-types.global.overview": {
+                "data": {
+                  "content": "# Pitfalls that silently produce wrong answers\n\n## Purpose\nWhat querying mistakes, unfinalized date windows, obfuscation placeholders, and compliance violations will silently invalidate metrics or breach data governance on Merch Store clickstream data? This guide outlines the operational rules, metric calculations, and structural traps across table `kc-okf-poc-261122.ga4_sample.events` (code `MSC-417`) [1].\n\n## Definitions\n- **Active buyer (28d)**: A user identified by `user_pseudo_id` who generated at least one `purchase` event within the trailing 28 days [1].\n- **Cart conversion rate**: Total distinct sessions that logged a `purchase` event divided by total distinct sessions that logged an `add_to_cart` event [1].\n- **Engaged session**: A session identified by `user_pseudo_id` plus `ga_session_id` that lasted longer than 10 seconds, had 2 or more page views, or included a `purchase` event [1].\n- **Net merch revenue**: Revenue calculated strictly as `SUM(ecommerce.purchase_revenue_in_usd) - SUM(ecommerce.refund_value_in_usd)`, reported in USD rather than local currency [1].\n- **Data sensitivity tiers**: Field classifications governing project usage: Tier C1 (internal: `device.*`, `traffic_source.*`, and general unlisted columns), Tier C2 (pseudonymous personal data: `user_pseudo_id`), and Tier C3 (restricted: `geo.city` and `geo.metro`) [1].\n\n## How to Query\n- Filter every query by date on the partition column `event_date_dt` (or `_TABLE_SUFFIX` when querying table shards `events_*`) to limit byte scan volume and query costs [1, 3, 5].\n- Bound analytics queries strictly between `2020-11-01` and `2021-01-31`, as this export is a static 92-day sample with no subsequent dates arriving [1, 2].\n- When querying ongoing daily loads, exclude the trailing 3 days; records take 72 hours after day-end to become final [1].\n- Exclude records where `traffic_source.source` equals `'(data deleted)'` from all marketing attribution reports [1].\n- Aggregate geographic metrics exclusively to `geo.region` or `geo.country`; do not expose `geo.city` or `geo.metro` in dashboards [1].\n- Keep `user_pseudo_id` inside the analytics warehouse; do not export it outside the analytics project or join it against CRM records or email lists [1].\n- Note that rows older than 14 months are subject to deletion under retention policies stewarded by the Digital Insights Guild (`#msc-417-data`) [1].\n\nThe snippet demonstrates safe partition boundaries, attribution exclusion, session isolation, and USD revenue calculation [1, 3, 4, 5].\n\n## Traps\n- **Reported metric values change or drift over the last three days.** Daily ingestion is not final until 72 hours after the calendar day closes; do not report metrics from the last 3 days as final numbers [1].\n- **Marketing attribution models assign credit to deleted or redacted sources.** Compliance privacy deletions populate the source column with placeholder text; add `traffic_source.source != '(data deleted)'` to all marketing attribution queries [1].\n- **Revenue aggregates fail audit due to currency mix-ups or omitted returns.** Aggregating local currencies or ignoring refunds skews sales totals; calculate net merch revenue strictly as `SUM(ecommerce.purchase_revenue_in_usd) - SUM(ecommerce.refund_value_in_usd)` and avoid local currency columns [1].\n- **Publishing dashboards creates a Tier C3 privacy violation.** Including `geo.city` or `geo.metro` violates access policy; roll up all geographic reporting to the country or region level [1].\n- **Exporting user identifiers creates a Tier C2 personal data breach.** Moving `user_pseudo_id` outside the analytics project or joining it with CRM/email contact lists is prohibited; maintain user analysis strictly within pseudonymous project boundaries [1].\n- **Session counts equal event counts or produce massive inflations.** GA4 records events rather than dedicated session rows; extract session identifiers by pairing `user_pseudo_id` with `ga_session_id` from `event_params`, or filter by `event_name = 'session_start'` [1, 4].\n\n## Source References\n1. Merch Store Data Governance and Policy — states the data governance rules, tier classifications, finalization windows, and metric definitions for dataset MSC-417; the page states these policies directly as query bounds and governance rules.\n2. GA4 Sample Overview — states the 92-day table range and the use of `\u003cOther\u003e`, `NULL`, and empty string obfuscation placeholders; the page states these bounds and filters directly.\n3. GA4 Query Example 2 — states that filtering on daily partitions reduces scan costs and demonstrates active user aggregation; the page states this filtering rule directly.\n4. GA4 Query Example 3 — states that sessions are stored as nested `ga_session_id` parameters rather than rows; the page states this unnesting technique directly.\n5. GA4 Export Events Specification — states that date filtering in event exports requires the `_TABLE_SUFFIX` pseudo-column; the page states this syntax directly.\n6. GA4 Query Example 4 — states that product e-commerce analysis requires unnesting the `items` array; the page states this unnesting requirement directly.\n7. GA4 Query Example 1 — states that unique users are calculated from device cookies in `user_pseudo_id`; the page states this calculation directly.\n8. GA4 Export Usage Guide — states that GA4 exports utilize nested arrays and structs; the page states this schema structure directly.\n\nSee also: `assets/bigquery/kc-okf-poc-261122/ga4_sample/events` — the table entry for `kc-okf-poc-261122.ga4_sample.events`.",
+                  "contentType": "MARKDOWN"
+                }
+              }
+            },
+            "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents",
+            "entrySource": {
+              "labels": {
+                "generator": "enrichment_agent",
+                "source": "knowledge_agent"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "description": {
+      "job": {
+        "name": "projects/kc-okf-poc-261122/locations/us/enrichmentTasks/8e3191da-46b1-409b-9bb1-87b4c7219f1d/runs/94165469-4f79-4922-ab13-83c9b2bb1d77"
+      }
+    }
+  },
+  "batchChangeMetadataResponse": {}
+}

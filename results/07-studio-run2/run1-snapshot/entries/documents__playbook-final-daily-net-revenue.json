@@ -1,0 +1,35 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents/playbook-final-daily-net-revenue",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-23T00:18:05.777490Z",
+  "updateTime": "2026-11-23T00:18:05.777490Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-23T00:18:05.777490Z",
+      "updateTime": "2026-11-23T00:18:05.777490Z",
+      "data": {
+        "type": "knowledge-base"
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-23T00:18:05.777490Z",
+      "updateTime": "2026-11-23T00:18:05.777490Z",
+      "data": {
+        "content": "# Playbook: daily net revenue, final days only\n\nHand-written by the data team (POC step 4). Follow this when a question asks for revenue **per day** over a period that reaches the end of the data.\n\n## When to use\n\nQuestions like \"daily net revenue for January\", \"revenue trend last month by day\", \"net sales per day up to the latest date\".\n\n## Approach\n\n1. Net merch revenue = `SUM(ecommerce.purchase_revenue_in_usd) - SUM(IFNULL(ecommerce.refund_value_in_usd, 0))`. USD columns only. Treat a missing refund as 0, or the whole day becomes NULL.\n2. A day is final 72 hours after it ends, so **drop the last 3 days** of the period: end the range at `DATE_SUB(<last day>, INTERVAL 3 DAY)`. The data ends on 2021-01-31, so January's final days are 2021-01-01 to 2021-01-28.\n3. Filter on the partition column `event_date_dt`, never on the string `event_date`.\n4. Group by `event_date_dt` and order by it.\n5. In the answer, say that the last 3 days were left out because they are not final yet.\n\n## SQL\n\n```sql\nSELECT event_date_dt,\n       SUM(ecommerce.purchase_revenue_in_usd) - SUM(IFNULL(ecommerce.refund_value_in_usd, 0)) AS net_merch_revenue_usd\nFROM `kc-okf-poc-261122.ga4_sample.events`\nWHERE event_date_dt BETWEEN '2021-01-01' AND DATE_SUB('2021-01-31', INTERVAL 3 DAY)\nGROUP BY event_date_dt\nORDER BY event_date_dt\n```\n\n## Traps seen before\n\n- Using `purchase_revenue` (local currency) instead of `purchase_revenue_in_usd`.\n- Forgetting `IFNULL` on refunds, which turns days without refunds into NULL.\n- Including 2021-01-29 to 2021-01-31, which are not final.\n",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/documents",
+  "entrySource": {
+    "labels": {
+      "source": "human"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

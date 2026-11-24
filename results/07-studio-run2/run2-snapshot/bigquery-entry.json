@@ -1,0 +1,780 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events",
+  "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+  "createTime": "2026-11-22T14:48:30.463822Z",
+  "updateTime": "2026-11-22T18:01:39.785667Z",
+  "aspects": {
+    "655216118709.global.bigquery-policy": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/bigquery-policy",
+      "createTime": "2026-11-22T14:48:30.463822Z",
+      "updateTime": "2026-11-22T14:48:30.463822Z",
+      "data": {
+        "numRowAccessPolicies": 0,
+        "numColumnDataPolicies": 0,
+        "numTags": 0
+      },
+      "aspectSource": {
+        "createTime": "2026-11-22T14:48:29.589Z",
+        "updateTime": "2026-11-22T14:48:29.589Z",
+        "dataVersion": "Ingestion/1.0.0"
+      }
+    },
+    "655216118709.global.bigquery-table": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/bigquery-table",
+      "createTime": "2026-11-22T14:48:30.463822Z",
+      "updateTime": "2026-11-22T14:48:30.463822Z",
+      "data": {
+        "type": "TABLE",
+        "partitioning": {
+          "columns": [
+            "event_date_dt"
+          ],
+          "interval": "DAY"
+        },
+        "tableType": "TABLE"
+      },
+      "aspectSource": {
+        "createTime": "2026-11-22T14:48:29.589Z",
+        "updateTime": "2026-11-22T14:48:29.589Z",
+        "dataVersion": "Ingestion/1.0.0"
+      }
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-22T18:01:39.750168Z",
+      "updateTime": "2026-11-22T18:01:39.750168Z",
+      "data": {
+        "content": "The `kc-okf-poc-261122.ga4_sample/events` asset contains raw, event-level data exported from a Google Analytics 4 (GA4) implementation. This data originates from the Google Merchandise Store, a real e-commerce platform that sells Google-branded apparel and accessories. The dataset provides standard web e-commerce measurement events along with enhanced tracking features, making it a powerful resource for analytics, query prototyping, and data science modeling.\n\nThis dataset spans a three-month period from November 1, 2020, to January 31, 2021. To protect user privacy and sensitive business operations, the underlying metrics and details are obfuscated with placeholder values like `<Other>`, `NULL`, and empty strings. While structurally rich, this data does not support direct benchmarking against the live Google Merchandise Store, though it preserves realistic schemas and relationships for development.\n\nThe schema is highly nested, employing repeated record fields to encapsulate attributes such as event parameters, user properties, and product lists. Analysts can leverage this asset to practice complex querying patterns, SQL operations like `UNNEST()`, sessionization techniques, and visual dashboard prototyping in platforms like Looker Studio or Tableau.\n\n## Data Details\n\n* **Origin and Activity Source**: Real web tracking data from the Google Merchandise Store, implementing GA4 enhanced measurement and standard e-commerce setups.\n* **Temporal Horizon**: Covers user events logged between November 1, 2020, and January 31, 2021.\n* **Privacy Controls**: Features deliberate obfuscation of sensitive values to protect business operations and user identity, which means metrics do not align with live store benchmarks.\n* **Highly Nested Schema**:\n  * `event_params`: Key-value pairs capturing event-specific properties (e.g., session identifiers, page URLs).\n  * `user_properties`: Captures persistent user-level attributes.\n  * `items`: Lists e-commerce products involved in an event, detailing names, categories, and transaction quantities.\n* **Key Event Columns**:\n  * `event_name`: Categorizes actions (e.g., `page_view`, `session_start`, `add_to_cart`, `purchase`).\n  * `event_date` & `event_date_dt`: Date fields representing when the event occurred, enabling date-partitioned analysis.\n  * `user_pseudo_id`: Persistent anonymous device identifiers.\n  * `device`, `geo`, & `traffic_source`: Provide granular dimensions detailing technology, location (city, country), and acquisition channel.\n  * `ecommerce` & `user_ltv`: Store transactional details like total revenue, tax, and customer lifetime value in USD.\n\n## Usage Details\n\n* **Cost Optimization & Performance**: Because GA4 datasets are highly voluminous, queries should always use a filter on the partition column (`event_date_dt`) within the `WHERE` clause. This limits the data scanned and dramatically minimizes query execution costs.\n* **Flattening Nested Records**: Since fields like `event_params` and `items` are arrays of structs, use the SQL `UNNEST()` function to flatten these columns and make individual elements queryable.\n* **Session Analysis**: Because GA4 does not store sessions as unique records, individual sessions must be calculated by targeting the `session_start` event and unnesting the `ga_session_id` parameter from the `event_params` array.\n* **E-Commerce Funnel Tracking**: Top items and user conversion paths can be tracked by matching actions like `add_to_cart` and unnesting the corresponding `items` array.\n\n### Query Examples\n\n#### 1. High-Level Event and User Scale\nTo understand the scale of the dataset, count the total events, unique users, and total tracked days:\n```sql\nSELECT \n  COUNT(*) AS total_events, \n  COUNT(DISTINCT user_pseudo_id) AS total_unique_users, \n  COUNT(DISTINCT event_date) AS total_days\nFROM \n  `kc-okf-poc-261122.ga4_sample.events`\n```\n\n#### 2. Querying within a Specific Date Range\nFilter queries on `event_date_dt` to restrict query scan size and enhance performance:\n```sql\nSELECT \n  event_date, \n  COUNT(DISTINCT user_pseudo_id) as active_users \nFROM \n  `kc-okf-poc-261122.ga4_sample.events` \nWHERE \n  event_date_dt BETWEEN PARSE_DATE('%Y%m%d', '20201201') AND PARSE_DATE('%Y%m%d', '20201231') \nGROUP BY \n  event_date \nORDER BY \n  event_date ASC\n```\n\n#### 3. Analyzing Sessions (Unnesting Parameters)\nExtract the unique session count by filtering for the `session_start` event and unnesting its parameters:\n```sql\nSELECT \n  COUNT(DISTINCT value.int_value) AS total_sessions\nFROM \n  `kc-okf-poc-261122.ga4_sample.events`, \n  UNNEST(event_params) \nWHERE \n  event_name = 'session_start' \n  AND key = 'ga_session_id'\n```\n\n#### 4. Top E-Commerce Products (Added to Cart)\nIdentify the top 10 most popular products added to the shopping cart:\n```sql\nSELECT \n  items.item_name, \n  COUNT(*) AS added_to_cart_count \nFROM \n  `kc-okf-poc-261122.ga4_sample.events`, \n  UNNEST(items) AS items\nWHERE \n  event_name = 'add_to_cart' \nGROUP BY \n  items.item_name \nORDER BY \n  added_to_cart_count DESC \nLIMIT 10\n```\n\n## Citations\n\n* Google Analytics 4 BigQuery Public Dataset, `overview.md`\n* Using Google Analytics 4 BigQuery Public Dataset, `usage.md`\n* Using Analytics Events, `events.md`\n* High-Level Event and User Volume, `example1.md`\n* Querying a Specific Date Range, `example2.md`\n* Session Analysis (Unnesting Parameters), `example3.md`\n* E-Commerce Product Interest, `example4.md`\n",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.schema": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/schema",
+      "createTime": "2026-11-22T14:48:30.463822Z",
+      "updateTime": "2026-11-22T14:48:30.463822Z",
+      "data": {
+        "fields": [
+          {
+            "name": "event_date",
+            "dataType": "STRING",
+            "metadataType": "STRING",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_timestamp",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_name",
+            "dataType": "STRING",
+            "metadataType": "STRING",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_params",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "key",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "value",
+                "dataType": "RECORD",
+                "metadataType": "STRUCT",
+                "fields": [
+                  {
+                    "name": "string_value",
+                    "dataType": "STRING",
+                    "metadataType": "STRING",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "int_value",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "float_value",
+                    "dataType": "FLOAT",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "double_value",
+                    "dataType": "FLOAT",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  }
+                ],
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "REPEATED"
+          },
+          {
+            "name": "event_previous_timestamp",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_value_in_usd",
+            "dataType": "FLOAT",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_bundle_sequence_id",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_server_timestamp_offset",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "user_id",
+            "dataType": "STRING",
+            "metadataType": "STRING",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "user_pseudo_id",
+            "dataType": "STRING",
+            "metadataType": "STRING",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "privacy_info",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "analytics_storage",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "ads_storage",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "uses_transient_token",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "user_properties",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "key",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "value",
+                "dataType": "RECORD",
+                "metadataType": "STRUCT",
+                "fields": [
+                  {
+                    "name": "string_value",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "int_value",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "float_value",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "double_value",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "set_timestamp_micros",
+                    "dataType": "INTEGER",
+                    "metadataType": "NUMBER",
+                    "mode": "NULLABLE"
+                  }
+                ],
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "REPEATED"
+          },
+          {
+            "name": "user_first_touch_timestamp",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "user_ltv",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "revenue",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "currency",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "device",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "category",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "mobile_brand_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "mobile_model_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "mobile_marketing_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "mobile_os_hardware_model",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "operating_system",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "operating_system_version",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "vendor_id",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "advertising_id",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "language",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "is_limited_ad_tracking",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "time_zone_offset_seconds",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "web_info",
+                "dataType": "RECORD",
+                "metadataType": "STRUCT",
+                "fields": [
+                  {
+                    "name": "browser",
+                    "dataType": "STRING",
+                    "metadataType": "STRING",
+                    "mode": "NULLABLE"
+                  },
+                  {
+                    "name": "browser_version",
+                    "dataType": "STRING",
+                    "metadataType": "STRING",
+                    "mode": "NULLABLE"
+                  }
+                ],
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "geo",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "continent",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "sub_continent",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "country",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "region",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "city",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "metro",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "app_info",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "version",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "install_store",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "firebase_app_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "install_source",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "traffic_source",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "medium",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "source",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "stream_id",
+            "dataType": "INTEGER",
+            "metadataType": "NUMBER",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "platform",
+            "dataType": "STRING",
+            "metadataType": "STRING",
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "event_dimensions",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "hostname",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "ecommerce",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "total_item_quantity",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "purchase_revenue_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "purchase_revenue",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "refund_value_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "refund_value",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "shipping_value_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "shipping_value",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "tax_value_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "tax_value",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "unique_items",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "transaction_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "NULLABLE"
+          },
+          {
+            "name": "items",
+            "dataType": "RECORD",
+            "metadataType": "STRUCT",
+            "fields": [
+              {
+                "name": "item_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_brand",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_variant",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_category",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_category2",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_category3",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_category4",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_category5",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "price_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "price",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "quantity",
+                "dataType": "INTEGER",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_revenue_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_revenue",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_refund_in_usd",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_refund",
+                "dataType": "FLOAT",
+                "metadataType": "NUMBER",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "coupon",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "affiliation",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "location_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_list_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_list_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "item_list_index",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "promotion_id",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "promotion_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "creative_name",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              },
+              {
+                "name": "creative_slot",
+                "dataType": "STRING",
+                "metadataType": "STRING",
+                "mode": "NULLABLE"
+              }
+            ],
+            "mode": "REPEATED"
+          },
+          {
+            "name": "event_date_dt",
+            "dataType": "DATE",
+            "metadataType": "DATETIME",
+            "mode": "NULLABLE"
+          }
+        ]
+      },
+      "aspectSource": {
+        "createTime": "2026-11-22T14:48:29.589Z",
+        "updateTime": "2026-11-22T14:48:29.589Z",
+        "dataVersion": "Ingestion/1.0.0"
+      }
+    },
+    "655216118709.global.storage": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/storage",
+      "createTime": "2026-11-22T14:48:30.463822Z",
+      "updateTime": "2026-11-22T14:48:30.463822Z",
+      "data": {
+        "service": "BIGQUERY",
+        "resourceName": "//bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events"
+      },
+      "aspectSource": {
+        "createTime": "2026-11-22T14:48:29.589Z",
+        "updateTime": "2026-11-22T14:48:29.589Z",
+        "dataVersion": "Ingestion/1.0.0"
+      }
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample",
+  "fullyQualifiedName": "bigquery:kc-okf-poc-261122.ga4_sample.events",
+  "entrySource": {
+    "resource": "projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events",
+    "system": "BIGQUERY",
+    "platform": "GCP",
+    "displayName": "events",
+    "ancestors": [
+      {
+        "name": "projects/kc-okf-poc-261122/datasets/ga4_sample",
+        "type": "dataplex-types.global.bigquery-dataset"
+      }
+    ],
+    "createTime": "2026-11-22T14:48:29.589Z",
+    "updateTime": "2026-11-22T14:48:29.589Z",
+    "location": "us"
+  }
+}

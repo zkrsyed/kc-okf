@@ -1,0 +1,40 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents/calculating-core-metrics",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-24T20:24:28.349248Z",
+  "updateTime": "2026-11-24T20:24:28.349248Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-24T20:24:28.349248Z",
+      "updateTime": "2026-11-24T20:24:28.349248Z",
+      "data": {
+        "type": "knowledge-base",
+        "job": {
+          "name": "enrichment-agent/enrich-7939c61dc2724775",
+          "runTime": "2026-11-24T19:45:19Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-24T20:24:28.349248Z",
+      "updateTime": "2026-11-24T20:24:28.349248Z",
+      "data": {
+        "content": "# Calculating Core Clickstream and Ecommerce Metrics\n\n## Purpose\nThis page documents how to calculate core clickstream and e-commerce metrics\u2014including unique sessions, active buyers, engaged sessions, net revenue, and cart conversion rate\u2014from nested event parameters in GA4 clickstream exports, alongside table-level governance rules, sensitivity tiers, and operational constraints [1, 2, 3, 4].\n\n## Definitions\n- **Active Buyer (28d)**: A distinct `user_pseudo_id` associated with at least one `purchase` event occurring within the trailing 28 days [1].\n- **Engaged Session**: A session (`user_pseudo_id` plus `ga_session_id`) that lasts longer than 10 seconds, contains 2 or more page views, or records a `purchase` event [1].\n- **Net Merch Revenue**: The total monetary value computed as the sum of `ecommerce.purchase_revenue_in_usd` minus the sum of `ecommerce.refund_value_in_usd`, reported strictly in USD [1].\n- **Cart Conversion Rate**: The ratio calculated by dividing the number of unique sessions containing a `purchase` event by the number of unique sessions containing an `add_to_cart` event [1].\n\n## How to Query\n\n### Data Policy and Sensitivity Tiers\nField classifications and usage constraints are governed by policy `MSC-417` [1]:\n- `user_pseudo_id`: Classified as **Tier C2 (pseudonymous personal data)** [1]. Never export outside the analytics project, and never join with CRM records or email lists [1].\n- `geo.city` and `geo.metro`: Classified as **Tier C3 (restricted)** [1]. Must never be reported at the city level in dashboards; aggregate strictly to region or country [1].\n- `device.*` and `traffic_source.*`: Classified as **Tier C1 (internal)** with no additional reporting restrictions [1].\n- All other table columns: Classified as **Tier C1 (internal)** [1].\n\n### Governance Rules and Reporting Constraints\n- **Table Scope & Grain**: Applies to `kc-okf-poc-261122.ga4_sample.events` (business name: *Merch Store Clickstream*, dataset code `MSC-417`), owned by the Digital Insights Guild [1].\n- **Partition Filtering**: Always include a partition filter on `event_date_dt` (or `_TABLE_SUFFIX` on partitioned exports) in the `WHERE` clause to avoid full-table scans [1].\n- **Date Window**: The dataset contains 92 daily partitions covering `2020-11-01` to `2021-01-31`; no newer data will arrive [1].\n- **Finality Window**: Data loads once daily and finalizes 72 hours after day-end [1]. Do not report final figures on the trailing 3 days [1].\n- **Retention**: Rows older than 14 months must be deleted [1].\n- **Marketing Attribution Exclusion**: Exclude records where `traffic_source.source = '(data deleted)'` from all attribution queries [1].\n\n### SQL Pattern: Unnesting Sessions and Items\n\nTo query product details, flatten the nested `items` array using `UNNEST(items)` [4].\n\n## Method\nTo compute core metrics across the clickstream log:\n\n1. **Prune Partitions**: Apply a filter on `event_date_dt` or `_TABLE_SUFFIX` to scope the query window [1].\n4. **Aggregate Metric Numerators and Denominators**:\n   - For **Engaged Sessions**, identify session IDs meeting duration (>10s), page view count (>=2), or purchase criteria [1].\n   - For **Net Merch Revenue**, compute `SUM(ecommerce.purchase_revenue_in_usd) - SUM(ecommerce.refund_value_in_usd)` [1].\n\n## Traps\n- **Marketing attribution counts include deleted traffic.** You omitted the exclusion filter; always add `WHERE traffic_source.source != '(data deleted)'` on marketing reports [1].\n- **Full table scan costs are high.** You queried without the partition column; always supply an explicit date predicate on `event_date_dt` or `_TABLE_SUFFIX` [1].\n- **Net revenue does not reconcile across regions.** You summed local currency columns instead of USD fields; sum `ecommerce.purchase_revenue_in_usd` and subtract `ecommerce.refund_value_in_usd` [1].\n- **City-level dimensions appear in customer-facing dashboards.** You published `geo.city` or `geo.metro`; Tier C3 policy requires rolling up geographic metrics to region or country [1].\n\n## Source References\n1. `gs://kc-okf-poc-261122-signals/merch-store-data-policy.md` \u2014 states sensitivity tiers, data retention, partition filtering rules, attribution exclusions, and definitions for net merch revenue, active buyers, engaged sessions, and cart conversion rates.\n2. `gs://kc-okf-poc-261122-signals/google-sample/example3.md` \u2014 states that session IDs reside nested inside `event_params` under `ga_session_id` and describes isolating `session_start` to count sessions.\n3. `gs://kc-okf-poc-261122-signals/google-sample/example1.md` \u2014 states that unique users are identified via device cookies in `user_pseudo_id`.\n4. `gs://kc-okf-poc-261122-signals/google-sample/example4.md` \u2014 states that e-commerce item attributes are stored in a nested `items` array requiring `UNNEST(items)` to analyze product events.\n\nSee also: `assets/bigquery/kc-okf-poc-261122/ga4_sample/events` \u2014 the table entry for `kc-okf-poc-261122.ga4_sample.events`.",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/documents",
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

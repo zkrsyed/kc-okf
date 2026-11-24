@@ -1,0 +1,40 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-24T20:24:27.866011Z",
+  "updateTime": "2026-11-24T20:24:27.866011Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-24T20:24:27.866011Z",
+      "updateTime": "2026-11-24T20:24:27.866011Z",
+      "data": {
+        "type": "knowledge-base-index",
+        "job": {
+          "name": "enrichment-agent/enrich-7939c61dc2724775",
+          "runTime": "2026-11-24T19:45:19Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-24T20:24:27.866011Z",
+      "updateTime": "2026-11-24T20:24:27.866011Z",
+      "data": {
+        "content": "# Assets\n\nIndex of catalog/assets (1 item(s)).\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample | Ga4 Sample | folder | Index of catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample (1 item(s)). |",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/agents",
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

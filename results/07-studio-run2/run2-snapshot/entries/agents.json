@@ -1,0 +1,39 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/agents",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-24T20:24:27.724536Z",
+  "updateTime": "2026-11-24T20:24:27.724536Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-24T20:24:27.724536Z",
+      "updateTime": "2026-11-24T20:24:27.724536Z",
+      "data": {
+        "type": "knowledge-base-root",
+        "job": {
+          "name": "enrichment-agent/enrich-7939c61dc2724775",
+          "runTime": "2026-11-24T19:45:19Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-24T20:24:27.724536Z",
+      "updateTime": "2026-11-24T20:24:27.724536Z",
+      "data": {
+        "content": "# Merch Store Clickstream Knowledge Base\n\nIndex of the catalog root (2 item(s)).\n\n## What this is\n\nThis knowledge base covers digital merchandising, e-commerce clickstream tracking, user journeys, conversion funnels, and marketing attribution across `kc-okf-poc-261122.ga4_sample.events` (governance code `MSC-417`, copied from `bigquery-public-data.ga4_obfuscated_sample_ecommerce`). Each row represents a single clickstream event, with session identifiers nested inside `event_params` and product interactions stored in the `items` array. Data coverage is a fixed 92-day historical benchmark spanning November 1, 2020, to January 31, 2021, with no incoming data. Monetary metrics are strictly reported in USD via dedicated columns like `ecommerce.purchase_revenue_in_usd`, while sequence timestamps such as `event_previous_timestamp` are recorded in microseconds.\n\n## Top traps\n\n- **Time interval calculations are off by a factor of one million.** The `event_previous_timestamp` field is an integer stored in microseconds.\n- **Queries for recent dates return zero rows.** Dataset MSC-417 is a fixed historical benchmark covering 2020-11-01 through 2021-01-31 only.\n\n## How to navigate\n\nLook entries up by the ids below. A lookup returns only the entries it names -- a parent never arrives with its children -- so read this page for the id you want, then fetch that id.\n\n- `assets` \u2014 1 table overlays, addressed as `assets/bigquery/<project>/<dataset>/<table>`. A dataset entry is its own index -- look the dataset up to see which tables it holds.\n- `documents` \u2014 2 pages of knowledge rather than objects -- operational, one topic each.\n\nBudget about three searches and three lookups per question: search to find the right tier or dataset, then look up the two or three entries it names.\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets | Assets | folder | Index of catalog/assets (1 item(s)). |\n| catalog/documents | Documents | folder | Cross-cutting reference pages for Document column descriptions, sensitivity tiers, and personal data flags for the events table, and define business glossary terms and data rules from the data policy: Analytics Operations. |",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

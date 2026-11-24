@@ -17,6 +17,7 @@
 | 5 | Serving to agents (MCP, APIs, context sets), NL-to-SQL with OKF | **use Google** (via OKF files) | Outside agent 6/15 → 10–12/15, held-out 0/3 → 3/3 ([step 5](results/05-agent.md)) |
 | 6 | Procedural knowledge (playbooks, skills) | **combine** | Playbooks work as ordinary pages; no playbook type in KC ([step 4](results/04-okf.md)) |
 | 7 | Nested schemas, cost and speed, Preview compliance limits | **use Google**, with Preview caveats | 29-min run, about USD 0.41 BigQuery; no task API; OKF left Google mid-POC ([step 6](results/06-verdict.md)) |
+| 8 | Does a custom instruction close the column-coverage gap? | **no: needs a custom piece** | More prose (24/24 columns, glossary section, numbered rules) but still 0 column fields, 0 glossary terms, 0 rule objects ([step 7](results/07-studio-run2.md)) |
 
 Verdict values: **use Google**, **needs a custom piece**, **combine**.
 
@@ -61,6 +62,7 @@ Verdict values: **use Google**, **needs a custom piece**, **combine**.
 4. OKF and playbooks: [poc/04-okf](poc/04-okf/), [results/04-okf.md](results/04-okf.md)
 5. Agent test: [poc/05-agent](poc/05-agent/), [results/05-agent.md](results/05-agent.md)
 6. Verdict: [results/06-verdict.md](results/06-verdict.md)
+7. Studio run 2 (custom instruction): [poc/07-studio-run2](poc/07-studio-run2/), [results/07-studio-run2.md](results/07-studio-run2.md)
 
 ### What I would tell a team deciding whether to build or use Google
 

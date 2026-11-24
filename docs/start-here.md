@@ -37,6 +37,7 @@ Everything ran on a copy of Google's public GA4 e-commerce sample (`bigquery-pub
     - kcmd's local MCP server serves the same text.
     - OKF itself left Google on 2026-11-18 and is now a vendor-neutral spec (v0.3). KC's export is only loosely OKF: no titles, descriptions or trust fields, so every page looks "unverified" to an OKF reader.
 6. **The context helps an agent built outside Google, on questions Studio never saw.** A local LangGraph agent answered 15 questions. With no context it got **6/15** and broke the city privacy rule twice. With the published pages as OKF files it got **10/15**, and through kcmd's MCP server **12/15** (13 and 14 when defensible readings count). It passed **3/3 held-out policy questions** where the no-context agent got 0/3, and it scanned about 3× less data. Files and MCP were equally accurate, but MCP used about 3× the tokens. ([Step 5](../results/05-agent.md); verdict per capability in [Step 6](../results/06-verdict.md))
+7. **Asking Studio for structure doesn't get you structure.** In a second run we told Studio to describe every field with its sensitivity tier and personal-data flag, propose glossary terms and list each rule separately. It wrote much more (all 24 columns instead of 12, a glossary section, numbered rules), but still only as page text: **no column description fields, no glossary terms, no rule objects**. The pages worked just as well for the agent (12/15 with files and with MCP, 3/3 held-out). ([Step 7](../results/07-studio-run2.md))
 
 ## How to read this report
 
@@ -46,6 +47,7 @@ Everything ran on a copy of Google's public GA4 e-commerce sample (`bigquery-pub
 | How Studio behaves, with 30 console screenshots | [Step 3: Knowledge Studio](../results/03-studio.md) |
 | Where OKF, MCP and playbooks fit with your own agents | [Where OKF fits](context-layer.md) and [Step 4](../results/04-okf.md) |
 | The agent experiment and its numbers | [Step 5](../results/05-agent.md) |
+| What a custom instruction changes in Studio's output | [Step 7](../results/07-studio-run2.md) |
 | To repeat any step | the "commands" section after each step |
 | What the words mean | [Concepts in plain words](concepts.md) |
 | What was created in the cloud, and how to delete it | [Cloud resources](../results/cloud-resources.md) |

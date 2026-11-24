@@ -1,0 +1,40 @@
+{
+  "name": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample",
+  "entryType": "projects/655216118709/locations/global/entryTypes/document",
+  "createTime": "2026-11-24T20:24:28.000380Z",
+  "updateTime": "2026-11-24T20:24:28.000380Z",
+  "aspects": {
+    "655216118709.global.document": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/document",
+      "createTime": "2026-11-24T20:24:28.000380Z",
+      "updateTime": "2026-11-24T20:24:28.000380Z",
+      "data": {
+        "type": "knowledge-base-index",
+        "job": {
+          "name": "enrichment-agent/enrich-7939c61dc2724775",
+          "runTime": "2026-11-24T19:45:19Z"
+        }
+      },
+      "aspectSource": {}
+    },
+    "655216118709.global.overview": {
+      "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+      "createTime": "2026-11-24T20:24:28.000380Z",
+      "updateTime": "2026-11-24T20:24:28.000380Z",
+      "data": {
+        "content": "# Ga4 Sample\n\nIndex of catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample (1 item(s)).\n\n## Contents\n\n| Path | Title | Type | Description |\n|------|-------|------|-------------|\n| catalog/assets/bigquery/kc-okf-poc-261122/ga4_sample/events | events | file | Context overlay for events. |",
+        "contentType": "MARKDOWN"
+      },
+      "aspectSource": {}
+    }
+  },
+  "parentEntry": "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context-r2/entries/assets",
+  "entrySource": {
+    "labels": {
+      "generator": "enrichment_agent",
+      "source": "knowledge_agent"
+    },
+    "location": "us"
+  },
+  "entryGroupType": "context-set"
+}

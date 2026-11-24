@@ -12,6 +12,7 @@ You're reading the record of a proof of concept (POC) run on 2026-11-22/23. It e
 | `poc/0N-*/README.md` | Exact commands for step N |
 | `docs/context-layer.md` | Where KC, Studio, kcmd and OKF sit in an agent's context layer; how outside agents read it; playbooks |
 | `results/06-verdict.md` | Verdict per capability, and a comparison checklist for custom agents |
+| `results/07-studio-run2.md` | Studio run 2: does a custom instruction produce column fields, glossary terms and rules? |
 | `results/cloud-resources.md` | Every cloud resource created and how to remove it |
 | `docs/screenshots/<step>/` | Console screenshots (personal details removed) |
 | `vendor/` | Git-ignored third-party checkouts (pinned commits are recorded in results) |
@@ -78,6 +79,14 @@ You're reading the record of a proof of concept (POC) run on 2026-11-22/23. It e
 - MCP used about 3× the tokens of the files route for the same accuracy.
 - Both context setups opened `agents` first in 15 of 15 runs, and read the hand-written playbook in 12–14 runs.
 - Details are in `results/05-agent.md`.
+
+**Studio run 2 (step 7, 2026-11-24).** Same inputs as run 1 plus one custom instruction asking for a description, tier and personal-data flag per field, glossary terms, and one item per rule.
+
+- Still only `document` + `overview` aspects: **0 column description fields, 0 glossary terms, 0 rule objects**; the BigQuery entry still has 0 of 24 columns described. Docs agree: enrichment "doesn't create business glossary terms".
+- More prose: 24 of 24 columns (run 1: 12), 4 of 85 nested fields, tiers inline for 5 columns (but "no assigned tier" for the rest, which contradicts the policy's C1), a 5-term glossary section, 8 numbered rules. 30-field sample vs Google's schema text: 4 right, 4 vague, 0 wrong, 22 not described.
+- Studio eval baseline 50% (run 1: 67%, same inputs, so the baseline is noisy) → projected 100%; confidence 84–87%; graded by an LLM judge. 32 min 39 s, 107,845 tokens, 63.9 GB BigQuery.
+- Agent test on run 2's pages only (no playbook): **B2 12/15, C2 12/15** strict, 3/3 held-out each, city rule never broken; MCP cost 2.5 M input tokens.
+- "Ontology included in enrichment" can't be set from the console, API or docs. Details in `results/07-studio-run2.md`.
 
 The setup:
 

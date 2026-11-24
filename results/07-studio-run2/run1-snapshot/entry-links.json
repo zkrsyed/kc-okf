@@ -1,0 +1,20 @@
+{
+  "projects/kc-okf-poc-261122/locations/us/entryGroups/ga4-merch-context/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample/events": [
+    {
+      "name": "projects/109873812728/locations/us/entryGroups/ga4-merch-context/entryLinks/link-events-events-776bc352",
+      "entryLinkType": "projects/655216118709/locations/global/entryLinkTypes/reference",
+      "createTime": "2026-11-22T23:51:30.906218Z",
+      "updateTime": "2026-11-22T23:51:30.906218Z",
+      "entryReferences": [
+        {
+          "name": "projects/109873812728/locations/us/entryGroups/ga4-merch-context/entries/assets/bigquery/kc-okf-poc-261122/ga4_sample/events",
+          "type": "SOURCE"
+        },
+        {
+          "name": "projects/109873812728/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/kc-okf-poc-261122/datasets/ga4_sample/tables/events",
+          "type": "TARGET"
+        }
+      ]
+    }
+  ]
+}

@@ -38,6 +38,8 @@ SECTIONS: list[tuple[str, str, str]] = [
     ("step-5", "Step 5 · Agent test", "results/05-agent.md"),
     ("step-5-cmds", "Step 5 · commands", "poc/05-agent/README.md"),
     ("step-6", "Step 6 · Verdict", "results/06-verdict.md"),
+    ("step-7", "Step 7 · Studio run 2 (custom instruction)", "results/07-studio-run2.md"),
+    ("step-7-cmds", "Step 7 · commands", "poc/07-studio-run2/README.md"),
     ("agents", "For AI agents: facts, IDs, file map", "AGENTS.md"),
     ("resources", "Cloud resources and clean-up", "results/cloud-resources.md"),
 ]
